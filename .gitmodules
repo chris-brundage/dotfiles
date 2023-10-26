@@ -1,0 +1,3 @@
+[submodule "neovim"]
+	path = neovim/.config/neovim
+	url = git@github.com:chris-brundage/neovim-config.git
