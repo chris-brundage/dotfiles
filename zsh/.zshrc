@@ -113,6 +113,27 @@ export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=
 # Begin Work stuff
 #
 
+# Activate the astro virtual environment (if needed) and switch to the source dir
+cdastro ()
+{
+    if command -v pyenv >/dev/null 2>&1; then
+        pyenv_version=$(pyenv version)
+
+        if [[ "${pyenv_version}" != astro* && "${pyenv_version}" != *PYENV_VERSION* ]]; then
+            # Don't fail the cd on account of the virtualenv not existing. pyenv will let us know
+            pyenv activate astro || true
+        elif [[ "${pyenv_version}" != astro* ]]; then
+            printf "Unable to auto-activate astro environment. Figure it out.\n"
+        fi
+    else
+        printf "It looks like pyenv is not installed. You should probably fix that.\n"
+    fi
+
+    cd ~/src/bi-astronomer
+}
+
+alias cddbt='~/src/bi-dbt/projects/business_insights'
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/chrisbrundage/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chrisbrundage/src/google-cloud-sdk/path.zsh.inc'; fi
 
