@@ -1,3 +1,6 @@
+# Home brew stuff. My personal laptop doesn't need this for some reason
+[ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"
+
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
@@ -18,3 +21,6 @@ export PATH="${PATH}:${GOPATH}/bin"
 if [[ $(uname) == "Darwin" ]]; then
     export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
 fi
+
+# added by Snowflake SnowSQL installer v1.2
+export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH

@@ -156,3 +156,10 @@ if [ -f '/Users/chrisbrundage/src/google-cloud-sdk/completion.zsh.inc' ]; then .
 #
 # End Work stuff
 #
+
+# iTerm shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Ruby!
+[ -d /opt/homebrew/opt/ruby@3.1/bin ] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
+
