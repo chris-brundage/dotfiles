@@ -127,7 +127,9 @@ activate_venv ()
             # Don't fail the cd on account of the virtualenv not existing. pyenv will let us know
             pyenv activate $venv_name || true
         elif [[ "${pyenv_version}" != $venv_name* ]]; then
-            printf "Unable to auto-activate $venv_name environment. Figure it out.\n" 
+            printf "Deactivating virtualenv %s\n" $pyenv_version
+            pyenv deactivate || true
+            pyenv activate $venv_name || true
         fi
     else
         printf "It looks like pyenv is not installed. You should probably fix that.\n"
@@ -145,13 +147,13 @@ cddbt ()
    activate_venv dbt && cd ~/src/bi-dbt/projects/business_insights 
 }
 
+[[ -e ~/src/bi-dbt/projects/business_insights/.env ]] && . ~/src/bi-dbt/projects/business_insights/.env 
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/chrisbrundage/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chrisbrundage/src/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/chrisbrundage/src/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/chrisbrundage/src/google-cloud-sdk/completion.zsh.inc'; fi
-
-[[ -e ~/src/bi-dbt/projects/business_insights/.env ]] && . ~/src/bi-dbt/projects/business_insights/.env 
+if [ -f '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc'; fi
 
 #
 # End Work stuff
