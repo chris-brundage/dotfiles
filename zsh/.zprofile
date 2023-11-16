@@ -24,3 +24,6 @@ fi
 
 # added by Snowflake SnowSQL installer v1.2
 export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+
+# Load secret envrionment variables so I don't foolishly put them in a public git repo!
+[ -e ~/.global.env ] && source ~/.global.env
