@@ -149,7 +149,9 @@ cddbt ()
    activate_venv dbt && cd ~/src/bi-dbt/projects/business_insights 
 }
 
-[[ -e ~/src/bi-dbt/projects/business_insights/.env ]] && . ~/src/bi-dbt/projects/business_insights/.env 
+BI_DBT_PROJECT_DIR="$HOME/src/bi-dbt/projects/business_insights"
+[[ -e "${BI_DBT_PROJECT_DIR}/.env" ]] && . "${BI_DBT_PROJECT_DIR}/.env"
+#[[ -e ~/src/bi-dbt/projects/business_insights/.env ]] && . ~/src/bi-dbt/projects/business_insights/.env 
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc'; fi
@@ -166,4 +168,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Ruby!
 [ -d /opt/homebrew/opt/ruby@3.1/bin ] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
-
