@@ -1,5 +1,23 @@
-# Home brew stuff. My personal laptop doesn't need this for some reason
-[ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"
+uname=($(uname -s -m))
+# zsh is a monster for not counting from 0
+os="${uname[1]}"
+arch="${uname[2]}"
+
+# Set homebrew path with support for x86 and ARM
+set_homebrew_path ()
+{
+    if [[ "${arch}" == "x86_64" ]]; then
+        homebrew_path="/usr/local"
+    else
+        homebrew_path="/opt/homebrew"
+    fi
+
+    if command -v "${homebrew_path}/bin/brew" >/dev/null 2>&1; then
+        eval "${homebrew_path}/bin/brew shellenv" >/dev/null
+    fi
+}
+
+set_homebrew_path
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -18,7 +36,7 @@ export PATH="$PATH:$GOPATH"
 export PATH="${PATH}:${GOPATH}/bin"
 
 # The macOS version of sed is trash
-if [[ $(uname) == "Darwin" ]]; then
+if [[ "${os}" == "Darwin" ]]; then
     export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
 fi
 
