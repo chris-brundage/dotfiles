@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -25,7 +22,7 @@ ZSH_THEME="gentoo"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -54,12 +51,6 @@ DISABLE_LS_COLORS="false"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
@@ -73,32 +64,6 @@ HIST_STAMPS="yyyy-mm-dd"
 plugins=(git brew pyenv ripgrep safe-paste iterm2)
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ls='ls -a' 
 alias ll='ls -ahl'
@@ -115,6 +80,7 @@ export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=
 # Begin Work stuff
 #
 
+# Use pyenv to activate the provided virtual environment name
 activate_venv ()
 {
     venv_name="${1}"
@@ -144,20 +110,20 @@ cdastro ()
     activate_venv astro && cd ~/src/bi-astronomer
 }
 
+# Activate the dbt virtual environment (if needed) and switch to the source dir
 cddbt ()
 {
-   activate_venv dbt && cd ~/src/bi-dbt/projects/business_insights 
+   activate_venv dbt && cd ~/src/bi-astronomer/dags/dbt
 }
-
-BI_DBT_PROJECT_DIR="$HOME/src/bi-dbt/projects/business_insights"
-[[ -e "${BI_DBT_PROJECT_DIR}/.env" ]] && . "${BI_DBT_PROJECT_DIR}/.env"
-#[[ -e ~/src/bi-dbt/projects/business_insights/.env ]] && . ~/src/bi-dbt/projects/business_insights/.env 
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Ruby!
+[ -d /opt/homebrew/opt/ruby@3.1/bin ] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
 
 #
 # End Work stuff
@@ -166,5 +132,3 @@ if [ -f '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc' ]; then 
 # iTerm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# Ruby!
-[ -d /opt/homebrew/opt/ruby@3.1/bin ] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
