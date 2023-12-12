@@ -20,7 +20,7 @@ set_homebrew_path ()
 set_homebrew_path
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 export PATH="/usr/local/opt/redis/bin:$PATH"
@@ -42,6 +42,8 @@ fi
 
 # added by Snowflake SnowSQL installer v1.2
 export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+
+[[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]] && export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [ -e ~/.global.env ] && source ~/.global.env

@@ -61,7 +61,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew pyenv ripgrep safe-paste iterm2)
+plugins=(git brew pyenv direnv ripgrep safe-paste iterm2)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,7 +113,7 @@ cdastro ()
 # Activate the dbt virtual environment (if needed) and switch to the source dir
 cddbt ()
 {
-   activate_venv dbt && cd ~/src/bi-astronomer/dags/dbt
+   activate_venv astro && cd ~/src/bi-astronomer/dags/dbt
 }
 
 # The next line updates PATH for the Google Cloud SDK.
