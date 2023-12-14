@@ -3,15 +3,15 @@ uname=($(uname -s -m))
 os="${uname[1]}"
 arch="${uname[2]}"
 
+if [[ "${arch}" == "x86_64" ]]; then
+    homebrew_path="/usr/local"
+else
+    homebrew_path="/opt/homebrew"
+fi
+
 # Set homebrew path with support for x86 and ARM
 set_homebrew_path ()
 {
-    if [[ "${arch}" == "x86_64" ]]; then
-        homebrew_path="/usr/local"
-    else
-        homebrew_path="/opt/homebrew"
-    fi
-
     if command -v "${homebrew_path}/bin/brew" >/dev/null 2>&1; then
         eval "${homebrew_path}/bin/brew shellenv" >/dev/null
     fi
@@ -37,7 +37,7 @@ export PATH="${PATH}:${GOPATH}/bin"
 
 # The macOS version of sed is trash
 if [[ "${os}" == "Darwin" ]]; then
-    export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
+    export PATH="${homebrew_path}/opt/gnu-sed/libexec/gnubin:${PATH}"
 fi
 
 # added by Snowflake SnowSQL installer v1.2
