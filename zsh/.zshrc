@@ -115,13 +115,13 @@ cddbt ()
 }
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/path.zsh.inc'; fi
+[[ -f "${HOME}/src/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/path.zsh.inc"
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/chris.brundage/src/google-cloud-sdk/completion.zsh.inc'; fi
+[[ -f "${HOME}/src/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/completion.zsh.inc"
 
 # Ruby!
-[ -d /opt/homebrew/opt/ruby@3.1/bin ] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
+[[ -d /opt/homebrew/opt/ruby@3.1/bin ]] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
 
 #
 # End Work stuff
