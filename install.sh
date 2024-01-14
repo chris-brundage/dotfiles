@@ -7,25 +7,27 @@ excluded_packages=(
     iterm
 )
 
-find_args=(
-    "find" "${SRC}" 
-    "!" "-path" "${SRC}" 
-    "-maxdepth" "1" 
-    "-type" "d" 
-    "-not" "-name" ".git" 
+find_cmd=(
+    "find" "${SRC}"
+    "!" "-path" "${SRC}"
+    "-maxdepth" "1"
+    "-type" "d"
+    "-not" "-name" ".git"
     "-and" "-not" "-name" "."
 )
 
 # bash makes me want to barf sometimes
-# I also probably over engineered the hell out of this given how few symlink 
+# I also probably over engineered the hell out of this given how few symlink
 # packages we care about
-read -r -a exclude_args <<< "${excluded_packages[@]/#/-and -not -name }"
-find_args+=("${exclude_args[@]}")
-find_args+=("-exec" "basename" "{}" "\\" ";")
+read -r -a exclude_args <<<"${excluded_packages[@]/#/-and -not -name }"
+find_cmd+=("${exclude_args[@]}")
+find_cmd+=("-exec" "basename" "{}" "\\" ";")
 
 # Get all directories inside source dir, except the dir itself and .git, and stow things
-"${find_args[@]}" | while read -r stow_dir; do
-    printf "Stowing %s\n" "${stow_dir}"
+packages=$("${find_cmd[@]}")
+# shellcheck disable=SC2250
+for package in $packages; do
+    printf "Stowing %s\n" "${package}"
 
-    stow -R --target="$HOME" "${stow_dir}"
+    stow -R --target="${HOME}" "${package}" 2>/dev/null
 done
