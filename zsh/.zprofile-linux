@@ -8,7 +8,7 @@ if command -v go >/dev/null 2>&1; then
 fi
 
 if [[ -z "${SSH_AGENT_PID:-}" ]]; then
-    eval "$(ssh-agent -s 2>/dev/null)"
+    eval "$(ssh-agent -s 2>/dev/null)" >/dev/null
 fi
 
 # vim: set ft=sh:

@@ -1,7 +1,7 @@
 # shellcheck disable=all
 
 if [[ -n "${SSH_AGENT_PID:-}" ]]; then
-    kill "${SSH_AGENT_PID}"
+    kill "${SSH_AGENT_PID}" >/dev/null 2>&1 || true
 fi
 
 # vim: set ft=sh:
