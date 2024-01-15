@@ -1,2 +1,4 @@
 alias ls='ls -a --color=auto'
 alias ll='ls -ahl --color=auto'
+
+# vim: set ft=sh:
