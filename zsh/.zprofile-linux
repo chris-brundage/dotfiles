@@ -1,0 +1,15 @@
+# shellcheck disable=all
+if command -v go >/dev/null 2>&1; then
+    if [[ -n "${GOPATH}" ]]; then
+        grep -q "${GOPATH}" <<<"${PATH}" || export PATH="${GOPATH}:${PATH}"
+    else
+        [[ -d "${HOME}/go/bin" ]] && export PATH="${HOME}/go/bin:${PATH}"
+    fi
+fi
+
+export SSH_AUTH_SOCK="${HOME}/.ssh/ssh-agent.${HOSTNAME}.sock"
+if [[ -z "${SSH_AGENT_PID:-}" ]]; then
+    ssh-agent -s >/dev/null
+fi
+
+# vim: set ft=sh:

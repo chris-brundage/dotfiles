@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 # shellcheck disable=SC1090,SC1091
 
+# I like to give root a different PS1
 if [[ "$(whoami)" == "root" ]]; then
     export PS1="\[\033[01;31m\]$(hostname)\[\033[01;32m\] \w $\[\033[00m\] "
 else

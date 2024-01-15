@@ -1,3 +1,5 @@
+SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -61,30 +63,21 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git direnv ripgrep safe-paste iterm2)
+if [[ "${SYSTEM_OS}" == "linux" ]]; then
+    plugins=(git direnv ripgrep safe-paste)
+else
+    plugins=(git direnv ripgrep safe-paste iterm2)
+fi
 
 source $ZSH/oh-my-zsh.sh
 
 alias ls='ls -a' 
 alias ll='ls -ahl'
 alias rm='rm -i'
-alias vim='nvim'
 
 export EDITOR="nvim"
 export CLICOLOR=1
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-
-# Add zsh completions if we have them installed
-if type brew &>/dev/null && [[ -d $(brew --prefix)/share/zsh-completions ]]; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit
-fi
-
-#
-# Begin Work stuff
-#
 
 # Use pyenv to activate the provided virtual environment name
 activate_venv ()
@@ -110,31 +103,13 @@ activate_venv ()
     fi
 }
 
-# Activate the astro virtual environment (if needed) and switch to the source dir
-cdastro ()
-{
-    activate_venv astro && cd ~/src/bi-astronomer
-}
-
-# Activate the dbt virtual environment (if needed) and switch to the source dir
-cddbt ()
-{
-   activate_venv astro && cd ~/src/bi-astronomer/dags/dbt
-}
-
-# The next line updates PATH for the Google Cloud SDK.
-[[ -f "${HOME}/src/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/path.zsh.inc"
-
-# The next line enables shell command completion for gcloud.
-[[ -f "${HOME}/src/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/completion.zsh.inc"
-
-# Ruby!
-[[ -d /opt/homebrew/opt/ruby@3.1/bin ]] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
-
-#
-# End Work stuff
-#
-
-# iTerm shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
+case "${SYSTEM_OS}" in
+    darwin)
+        [[ -f "${HOME}/.zshrc-macos" ]] && source "${HOME}/.zshrc-macos"
+    ;;
+    linux)
+        [[ -f "${HOME}/.zshrc-linux" ]] && source "${HOME}/.zshrc-linux"
+    ;;
+    *) 
+    ;;
+esac

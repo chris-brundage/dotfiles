@@ -1,7 +1,8 @@
 # shellcheck shell=bash
 # shellcheck disable=SC1090,SC1091
-export BASH_SILENCE_DEPRECATION_WARNING=1
 SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 export HISTTIMEFORMAT="%F %T  "
 export EDITOR="nvim"
@@ -10,7 +11,7 @@ export HISTSIZE=-1
 export PYENV_ROOT="${HOME}/.pyenv"
 [[ -d "${PYENV_ROOT}" ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
 
-if command -v pyenv >/dev/null; then
+if command -v pyenv >/dev/null 2>&1; then
     eval "$(pyenv init --path)"
 fi
 

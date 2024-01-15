@@ -1,0 +1,40 @@
+# Add zsh completions if we have them installed
+if type brew &>/dev/null && [[ -d $(brew --prefix)/share/zsh-completions ]]; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
+
+#
+# Begin Work stuff
+#
+
+# Activate the astro virtual environment (if needed) and switch to the source dir
+cdastro ()
+{
+    activate_venv astro && cd ~/src/bi-astronomer
+}
+
+# Activate the dbt virtual environment (if needed) and switch to the source dir
+cddbt ()
+{
+   activate_venv astro && cd ~/src/bi-astronomer/dags/dbt
+}
+
+# The next line updates PATH for the Google Cloud SDK.
+[[ -f "${HOME}/src/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/path.zsh.inc"
+
+# The next line enables shell command completion for gcloud.
+[[ -f "${HOME}/src/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/completion.zsh.inc"
+
+# Ruby!
+[[ -d /opt/homebrew/opt/ruby@3.1/bin ]] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
+
+#
+# End Work stuff
+#
+
+# iTerm shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
