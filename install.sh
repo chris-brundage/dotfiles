@@ -9,8 +9,8 @@ excluded_packages=(
 
 find_cmd=(
     "find" "${SRC}"
-    "!" "-path" "${SRC}"
     "-maxdepth" "1"
+    "!" "-path" "${SRC}"
     "-type" "d"
     "-not" "-name" ".git"
     "-and" "-not" "-name" "."
@@ -29,5 +29,5 @@ packages=$("${find_cmd[@]}")
 for package in $packages; do
     printf "Stowing %s\n" "${package}"
 
-    stow -R --target="${HOME}" "${package}" 2>/dev/null
+    stow -R --target="${HOME}" "${package}" 
 done
