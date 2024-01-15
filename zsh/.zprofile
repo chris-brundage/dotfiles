@@ -1,5 +1,24 @@
 SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
+# We need this global because pyenv on macOS fucks up without doing homebrew stuff
+# Figure out where homebrew lives (if installed) and get PATH and such updated
+setup_homebrew ()
+{
+    # Are we ARM or Intel?
+    os_arch=$(uname -m)
+
+    if [[ "${os_arch}" == "arm64" ]]; then
+        brew_path="/opt/homebrew"
+    else
+        brew_path="/usr/local"
+    fi
+
+    if [[ -d "$brew_path" ]]; then
+        brew_cmd="${brew_path}/bin/brew"
+        eval "$($brew_cmd shellenv)" >/dev/null
+    fi
+}
+
 # Get pyenv's shell stuff going. 
 setup_pyenv ()
 {
@@ -10,6 +29,8 @@ setup_pyenv ()
     fi
 }
 
+# We need this global because pyenv on macOS fucks up without doing homebrew stuff
+[[ "${SYSTEM_OS}" == "darwin" ]] && setup_homebrew
 setup_pyenv
 
 # Python 3 support for gcloud

@@ -1,24 +1,4 @@
 # shellcheck disable=all
-# Are we ARM or Intel?
-os_arch=$(uname -m)
-
-# Figure out where homebrew lives (if installed) and get PATH and such updated
-setup_homebrew ()
-{
-    if [[ "${os_arch}" == "arm64" ]]; then
-        brew_path="/opt/homebrew"
-    else
-        brew_path="/usr/local"
-    fi
-
-    if [[ -d "$brew_path" ]]; then
-        brew_cmd="${brew_path}/bin/brew"
-        eval "$($brew_cmd shellenv)" >/dev/null
-    fi
-}
-
-setup_homebrew
-
 [[ -d /usr/local/opt/redis/bin ]] && export PATH="/usr/local/opt/redis/bin:$PATH"
 
 export PATH="/opt/snowflake/snowcd:$PATH"

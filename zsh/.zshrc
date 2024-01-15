@@ -1,5 +1,3 @@
-SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -63,6 +61,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 if [[ "${SYSTEM_OS}" == "linux" ]]; then
     plugins=(git direnv ripgrep safe-paste)
 else
