@@ -1,0 +1,19 @@
+# shellcheck shell=bash
+export PS1="\[\033[0;37m\]\u@\h\[\033[0;32m\] \w \$\[\033[00m\] "
+
+[[ -d "/usr/local/opt/mysql@5.7/bin" ]] && export PATH="${PATH}:/usr/local/opt/mysql@5.7/bin"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+
+# OpenJDK - For compilers to find openjdk you may need to set:
+[[ -d "/usr/local/opt/openjdk@11" ]] && export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
+
+[[ -d "/usr/local/opt/node@14/bin" ]] && export PATH="${PATH}:/usr/local/opt/node@14/bin"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+[[ -d "${HOME}/.rvm/bin" ]] && export PATH="${PATH}:${HOME}/.rvm/bin"
+[[ -d "${HOME}/platform-tools" ]] && export PATH="${PATH}:${HOME}/platform-tools"
+
+alias tailf='tail -f'
+
+# vim: set ft=sh:

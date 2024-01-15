@@ -1,3 +1,7 @@
+# shellcheck shell=bash
+SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
+# Global stuff independent of which OS we're running on
 if command -v pyenv > /dev/null; then
     eval "$(pyenv init -)"
 fi
@@ -9,11 +13,9 @@ function pyenv_ps1 {
     if ! echo "${python_version}" | grep -Eq "set by.*\.pyenv/version"; then
         python_version=$(echo "${python_version}" | awk '{printf("%s", $1)}')
         printf "(%s) " "${python_version}"
-        #echo -n "(${python_version}) "
     fi
 }
 
-export PS1="\[\033[0;37m\]\u@\h\[\033[0;32m\] \w \$\[\033[00m\] "
 # Dynamically update PS1 to include a pyenv virtualenv, if present
 if command -v pyenv >/dev/null; then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
@@ -28,44 +30,21 @@ shopt -s histappend
 alias ls='ls -a' 
 alias ll='ls -ahl'
 alias rm='rm -i'
-alias vim='nvim'
 
-# Add tailf on macOS
-if [ $(uname -s | tr [A-Z] [a-z]) == "darwin" ]
-then
-    alias tailf='tail -f'
-fi
-
-if [ -d ~/bin ]
-then
-    export PATH="${HOME}/bin:${PATH}"
-fi
-
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-if [ -d /usr/local/opt/mysql@5.7/bin ] 
-then
-    export PATH="$PATH:/usr/local/opt/mysql@5.7/bin"
-fi
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-
-# OpenJDK - For compilers to find openjdk you may need to set:
-if [[ -d /usr/local/opt/openjdk@11 ]]; then
-    export CPPFLAGS="-I/usr/local/opt/openjdk@11/include"
-fi
-# export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+[[ -d ~/bin ]] && export PATH="${HOME}/bin:${PATH}"
 
 export CLOUDSDK_PYTHON=python3
 
-export PATH="$PATH:/usr/local/opt/node@14/bin"
+case "${SYSTEM_OS}" in
+    darwin)
+        # shellcheck disable=SC1091
+        [[ -e "${HOME}/.bashrc-macos" ]] && source "${HOME}/.bashrc-macos"
+        ;;
+    linux)
+        # shellcheck disable=SC1091
+        [[ -e "${HOME}/.bashrc-linux" ]] && source "${HOME}/.bashrc-linux"
+        ;;
+    *)
+        ;;
+esac
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$PATH:$HOME/platform-tools"
