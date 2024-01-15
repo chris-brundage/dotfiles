@@ -113,3 +113,6 @@ case "${SYSTEM_OS}" in
     *) 
     ;;
 esac
+
+# Load secret envrionment variables so I don't foolishly put them in a public git repo!
+[[ -e ~/.global.env ]] && source ~/.global.env
