@@ -10,26 +10,24 @@ export HISTSIZE=-1
 export PYENV_ROOT="${HOME}/.pyenv"
 [[ -d "${PYENV_ROOT}" ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
 
-if command -v pyenv > /dev/null; then
+if command -v pyenv >/dev/null; then
     eval "$(pyenv init --path)"
 fi
 
-
-if command -v pyenv-virtualenv-init >/dev/null 2>&1; then 
-    eval "$(pyenv virtualenv-init -)"; 
+if command -v pyenv-virtualenv-init >/dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 [[ -f ~/.adbrc ]] && source ~/.adbrc
 
 case "${SYSTEM_OS}" in
-    darwin)
-        [[ -f "${HOME}/.bash_profile-macos" ]] && source "${HOME}/.bash_profile-macos" 
-        ;;
-    linux)
-        [[ -f "${HOME}/.bash_profile-linux" ]] && source "${HOME}/.bash_profile-linux"
-        ;;
-    *)
-        ;;
+darwin)
+    [[ -f "${HOME}/.bash_profile-macos" ]] && source "${HOME}/.bash_profile-macos"
+    ;;
+linux)
+    [[ -f "${HOME}/.bash_profile-linux" ]] && source "${HOME}/.bash_profile-linux"
+    ;;
+*) ;;
 esac
 
 [[ -f ~/.bashrc ]] && source ~/.bashrc

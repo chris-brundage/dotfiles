@@ -8,11 +8,10 @@ else
 fi
 
 case "${TERM}" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;\h: \w\a\]${PS1}"
     ;;
-*)
-    ;;
+*) ;;
 esac
 
 alias ls='ls -a --color=auto'

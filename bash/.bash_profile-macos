@@ -2,7 +2,7 @@
 # shellcheck disable=SC1090,SC1091
 export PATH="/usr/local/sbin:${PATH}"
 
-if command -v brew > /dev/null; then
+if command -v brew >/dev/null; then
     [[ -f "$(brew --prefix)/etc/bash_completion" ]] && source "$(brew --prefix)/etc/bash_completion"
 fi
 

@@ -2,11 +2,11 @@
 SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 # Global stuff independent of which OS we're running on
-if command -v pyenv > /dev/null; then
+if command -v pyenv >/dev/null; then
     eval "$(pyenv init -)"
 fi
 
-# Prefix PS1 with the virtualenv name if we've activated one 
+# Prefix PS1 with the virtualenv name if we've activated one
 # https://github.com/pyenv/pyenv-virtualenv/issues/268
 function pyenv_ps1 {
     python_version=$(pyenv version | awk 'NR==1')
@@ -27,7 +27,7 @@ export CLICOLOR=1
 
 shopt -s histappend
 
-alias ls='ls -a' 
+alias ls='ls -a'
 alias ll='ls -ahl'
 alias rm='rm -i'
 
@@ -36,15 +36,13 @@ alias rm='rm -i'
 export CLOUDSDK_PYTHON=python3
 
 case "${SYSTEM_OS}" in
-    darwin)
-        # shellcheck disable=SC1091
-        [[ -e "${HOME}/.bashrc-macos" ]] && source "${HOME}/.bashrc-macos"
-        ;;
-    linux)
-        # shellcheck disable=SC1091
-        [[ -e "${HOME}/.bashrc-linux" ]] && source "${HOME}/.bashrc-linux"
-        ;;
-    *)
-        ;;
+darwin)
+    # shellcheck disable=SC1091
+    [[ -e "${HOME}/.bashrc-macos" ]] && source "${HOME}/.bashrc-macos"
+    ;;
+linux)
+    # shellcheck disable=SC1091
+    [[ -e "${HOME}/.bashrc-linux" ]] && source "${HOME}/.bashrc-linux"
+    ;;
+*) ;;
 esac
-
