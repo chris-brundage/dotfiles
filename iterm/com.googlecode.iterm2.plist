@@ -1270,7 +1270,7 @@
 			<key>Send Code When Idle</key>
 			<false/>
 			<key>Set Local Environment Vars</key>
-			<true/>
+			<false/>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Status Bar</key>
@@ -2432,7 +2432,7 @@
 				<real>1</real>
 			</dict>
 			<key>Bonjour Service Address</key>
-			<string>127.0.0.1</string>
+			<string>192.168.50.110</string>
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
@@ -2440,7 +2440,7 @@
 			<key>Columns</key>
 			<integer>103</integer>
 			<key>Command</key>
-			<string>ssh 127.0.0.1</string>
+			<string>ssh 192.168.50.110</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2500,7 +2500,7 @@
 				<real>0.73333334922790527</real>
 			</dict>
 			<key>Guid</key>
-			<string>46C71DF0-B0ED-42DD-92A4-E883F4E10AFA</string>
+			<string>42FF3763-D6DF-48B5-8CD4-587835376AD7</string>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
