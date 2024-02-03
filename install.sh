@@ -5,6 +5,7 @@ SRC="${1:-${HOME}/src/dotfiles}"
 # in the repo. Packages in this array will be kept away from stow
 excluded_packages=(
     iterm
+    windows
 )
 
 find_cmd=(

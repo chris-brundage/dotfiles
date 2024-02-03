@@ -1,0 +1,6 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Make sure Windows bullshit uses Windows line breaks
+*.ps1 text eol=crlf
+*.bat text eol=crlf
