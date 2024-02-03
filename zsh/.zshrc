@@ -114,5 +114,13 @@ case "${SYSTEM_OS}" in
     ;;
 esac
 
+load_env_file ()
+{
+    env_file="${1}"
+    while read -r env_var; do
+        export "${env_var}"
+    done < "${env_file}"
+}
+
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
-[[ -e ~/.global.env ]] && source ~/.global.env
+[[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"
