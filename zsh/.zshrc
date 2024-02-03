@@ -117,9 +117,12 @@ esac
 load_env_file ()
 {
     env_file="${1}"
-    while read -r env_var; do
-        export "${env_var}"
-    done < "${env_file}"
+
+    # https://gist.github.com/mihow/9c7f559807069a03e302605691f85572?permalink_comment_id=4172996#gistcomment-4172996
+    # People on the internet are much smarter than I am
+    set -o allexport
+    source "${env_file}"
+    set +o allexport
 }
 
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
