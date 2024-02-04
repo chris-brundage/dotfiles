@@ -1,16 +1,20 @@
 # shellcheck disable=all
-[[ -d /usr/local/opt/redis/bin ]] && export PATH="/usr/local/opt/redis/bin:$PATH"
+[[ -d /usr/local/opt/redis/bin ]] && export PATH="/usr/local/opt/redis/bin:${PATH}"
 
-export PATH="/opt/snowflake/snowcd:$PATH"
-export PATH="/Applications/SnowSQL.app/Contents/MacOS:$PATH"
+[[ -d "/opt/snowflake/snowcd" ]] && export PATH="/opt/snowflake/snowcd:${PATH}"
+[[ -d "/Applications/SnowSQL.app/Contents/MacOS" ]] && export PATH="/Applications/SnowSQL.app/Contents/MacOS:${PATH}"
+
 
 # Go stuff
-export GOPATH=$HOME/src/go
-export PATH="$PATH:$GOPATH"
-export PATH="${PATH}:${GOPATH}/bin"
+GOPATH="${HOME}/src/go"
+if [[ -d "${GOPATH}" ]]; then 
+    export GOPATH="${GOPATH}"
+    export PATH="${PATH}:${GOPATH}"
+    export PATH="${PATH}:${GOPATH}/bin"
+fi
 
 # Optional homebrew installed software that lives outside Homebrew's PATH
-if [[ -n "$HOMEBREW_PREFIX" ]]; then
+if [[ -n "${HOMEBREW_PREFIX}" ]]; then
     # The macOS version of sed is trash
     sed_path="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
     [[ -d "$sed_path" ]] &&  export PATH="${sed_path}:${PATH}"
