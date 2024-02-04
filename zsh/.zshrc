@@ -1,3 +1,5 @@
+SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -62,12 +64,25 @@ ZSH_CUSTOM="${HOME}/.oh-my-zsh-custom"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
-if [[ "${SYSTEM_OS}" == "linux" ]]; then
-    plugins=(git direnv ripgrep safe-paste)
-else
-    plugins=(git direnv ripgrep safe-paste iterm2)
-fi
+
+case "${SYSTEM_OS}" in
+    darwin)
+        plugins=(git direnv ripgrep safe-paste iterm2)
+        # Home brew autocompletion stuff needs to happen before we source oh my zsh
+        if command -v brew &>/dev/null; then
+            FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+            if [[ -d "$(brew --prefix)/share/zsh-completions" ]]; then
+                FPATH="$(brew --prefix)/share/zsh-completions:${FPATH}"
+            fi
+        fi
+    ;;
+    linux)
+        plugins=(git direnv ripgrep safe-paste)
+    ;;
+    *) 
+    ;;
+esac
 
 source $ZSH/oh-my-zsh.sh
 
