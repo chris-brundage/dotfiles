@@ -71,6 +71,9 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+# I disagree with some of oh-my-zsh's opinions
+unsetopt sharehistory
+
 alias ls='ls -a' 
 alias ll='ls -ahl'
 alias rm='rm -i'
