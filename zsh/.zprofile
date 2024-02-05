@@ -33,6 +33,8 @@ setup_pyenv ()
 [[ "${SYSTEM_OS}" == "darwin" ]] && setup_homebrew
 setup_pyenv
 
+[[ -d "${HOME}/bin" ]] && export PATH="${HOME}/bin:${PATH}"
+
 # Python 3 support for gcloud
 export CLOUDSDK_PYTHON=python3
 

@@ -21,6 +21,8 @@ fi
 
 [[ -f ~/.adbrc ]] && source ~/.adbrc
 
+[[ -d "${HOME}/bin" ]] && export PATH="${HOME}/bin:${PATH}"
+
 case "${SYSTEM_OS}" in
 darwin)
     [[ -f "${HOME}/.bash_profile-macos" ]] && source "${HOME}/.bash_profile-macos"
