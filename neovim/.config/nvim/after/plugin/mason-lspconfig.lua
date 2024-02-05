@@ -59,7 +59,8 @@ local servers = {
           enabled = true,
           -- The hacks! The hacks!
           -- NOTE: This works regardless of mypy's presence in the virtual env
-          overrides = { "--python-executable", '/bin/sh -c \'if [[ -n "${VIRTUAL_ENV:-}" ]]; then "${VIRTUAL_ENV}/bin/python"; else python; fi\'', "True" },
+          -- overrides = { "--python-executable", '/bin/sh -c \'if [[ -n "${VIRTUAL_ENV:-}" ]]; then "${VIRTUAL_ENV}/bin/python"; else /usr/bin/python3; fi\'', true },
+          overrides = { true, "--python-executable", vim.fn.expand("$HOME/bin/mypy_python.sh"), },
         },
         pylint = {
           enabled = true,
