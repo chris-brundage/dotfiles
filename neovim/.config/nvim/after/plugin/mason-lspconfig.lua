@@ -47,7 +47,10 @@ local servers = {
     pylsp = {
       plugins = {
         autopep8 = { enabled = false },
-        black = { enabled = true },
+        black = {
+          enabled = true,
+          line_length = 79,
+        },
         jedi_completion = {
           enabled = true,
           include_params = true,
@@ -68,7 +71,7 @@ local servers = {
           -- NOTE: This does **NOT** work if pylint is missing from the virtual env
           -- TODO: Fix that somehow without PYTHONPATH hacks
           executable = 'python $(command -v pylint) || pylint',
-          debounce = 2000,
+          debounce = 200,
         },
         yapf = { enabled = false },
       }
