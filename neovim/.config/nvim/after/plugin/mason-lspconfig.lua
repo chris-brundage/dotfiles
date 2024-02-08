@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    do return end
+end
+
 -- LSPs we want to install and manage via mason
 -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#automatic-server-setup-advanced-feature
 local shellcheck_args = {

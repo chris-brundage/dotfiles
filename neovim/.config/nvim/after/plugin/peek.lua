@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    do return end
+end
+
 -- default config:
 require('peek').setup({
   auto_load = true,         -- whether to automatically load preview when

@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    do return end
+end
+
 local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 

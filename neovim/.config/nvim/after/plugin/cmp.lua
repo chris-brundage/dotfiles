@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    do return end
+end
+
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')

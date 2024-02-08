@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    do return end
+end
+
 local builtin = require('telescope.builtin')
 
 require('telescope').setup {

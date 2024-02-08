@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    do return end
+end
+
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { 'c', 'cpp', 'jsonc', 'lua', 'vim', 'vimdoc', 'query', 'sql', 'python', 'ruby', 'csv', 'tsv', 'dockerfile', 'bash', 'jq', 'json', 'lua', 'make', 'pem', 'php', 'regex', 'terraform', 'yaml', 'xml' },
