@@ -11,4 +11,9 @@ if [[ -z "${SSH_AGENT_PID:-}" ]]; then
     eval "$(ssh-agent -s 2>/dev/null)" >/dev/null
 fi
 
+if [[ -d "${HOME}/.deno" ]]; then
+  export DENO_INSTALL="${HOME}/.deno"
+  export PATH="${DENO_INSTALL}/bin:${PATH}"
+fi
+
 # vim: set ft=sh:
