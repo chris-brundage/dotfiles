@@ -1,25 +1,40 @@
 set nocompatible
+syntax on
 set history=50
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-set autoindent
-inoremap <C-U> <C-G>u<C-U>
+set ruler
+set showcmd
 set modeline
 
-"set term=builtin_ansi
-syntax on
-set hlsearch
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
+set incsearch
+set autoindent
+
 set invnumber
 set relativenumber
 set number
-"filetype plugin indent on
-nmap <C-N><C-N> :set invnumber<CR>
-set expandtab       " convert tabs to spaces
-set tabstop=4       " 4 spaces to a tab
-set shiftwidth=4    " 4 spaces for indentation
+set colorcolumn=80
+highlight ColorColumn ctermbg=235 guibg=#31353f
 
+set mouse=a
 set termguicolors
+set clipboard=unnamed
+
+let g:netrw_banner=0
+
+" Toggle relativenumber on and off
+function! ToggleRelativeNumber()
+    if &relativenumber ==# 1
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunction
+
+nmap <C-N><C-N> :call ToggleRelativeNumber()<CR>
+inoremap <C-U> <C-G>u<C-U>
 
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
