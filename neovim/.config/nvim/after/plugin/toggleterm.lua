@@ -1,7 +1,8 @@
 if vim.g.vscode then
-    do return end
+  do return end
 end
 
-require('toggleterm').setup{}
+require('toggleterm').setup {}
 
 vim.keymap.set('n', '<leader>tt', vim.cmd.ToggleTerm)
+vim.keymap.set('n', '<leader>ttf', function() vim.cmd.ToggleTerm("direction='float'") end)
