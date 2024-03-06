@@ -2,8 +2,6 @@ if vim.g.vscode then
     do return end
 end
 
--- LSPs we want to install and manage via mason
--- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#automatic-server-setup-advanced-feature
 local shellcheck_args = {
   'add-default-case',
   'check-set-e-suppressed',
@@ -12,75 +10,6 @@ local shellcheck_args = {
   'quote-safe-variables',
   'require-double-brackets',
   'require-variable-braces',
-}
-
-local servers = {
-  clangd = {},
-  docker_compose_language_service = {},
-  dockerls = {},
-  efm = {
-    filetypes = { 'sh' },
-    init_options = { documentFormatting = true },
-    languages = {
-      sh = {
-        {
-          lintCommand = string.format('shellcheck -f gcc -x -o %s -', table.concat(shellcheck_args, ',')),
-          lintSource = 'shellcheck',
-          lintIgnoreExitCode = true,
-          lintStdin = true,
-          lintFormats = {
-            '%f:%l:%c: %trror: %m',
-            '%f:%l:%c: %tarning: %m',
-            '%f:%l:%c: %tote: %m',
-          },
-        },
-        {
-          formatCommand = 'shfmt -i 4 -filename "${INPUT}" -',
-          formatStdin = true,
-        },
-      }
-    },
-  },
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-  pylsp = {
-    pylsp = {
-      plugins = {
-        autopep8 = { enabled = false },
-        black = {
-          enabled = true,
-          line_length = 79,
-        },
-        jedi_completion = {
-          enabled = true,
-          include_params = true,
-          fuzzy = true,
-        },
-        pycodestyle = { enabled = false },
-        isort = { enabled = true, profile = 'black' },
-        pylsp_mypy = {
-          enabled = true,
-          -- The hacks! The hacks!
-          -- NOTE: This works regardless of mypy's presence in the virtual env
-          overrides = { true, "--python-executable", vim.fn.expand("$HOME/bin/mypy_python.sh"), },
-        },
-        pylint = {
-          enabled = true,
-          -- The hacks! The hacks!
-          -- NOTE: This does **NOT** work if pylint is missing from the virtual env
-          -- TODO: Fix that somehow without PYTHONPATH hacks
-          executable = 'python $(command -v pylint) || pylint',
-          debounce = 200,
-        },
-        yapf = { enabled = false },
-      }
-    }
-  },
-  sqlls = {},
 }
 
 local on_attach = function(_, bufnr)
@@ -124,12 +53,74 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- Setup neovim lua configuration
-require('neodev').setup()
-
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+local null_ls = require('null-ls')
+null_ls.setup{
+  on_attach = on_attach,
+  sources = {
+    null_ls.builtins.formatting.black.with({
+      extra_args = {'-l', '79'},
+    }),
+    null_ls.builtins.formatting.isort.with({
+      extra_args = {'--profile', 'black'},
+    }),
+  },
+  capabilities = capabilities,
+}
+
+-- LSPs we want to install and manage via mason
+-- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#automatic-server-setup-advanced-feature
+local servers = {
+  clangd = {},
+  docker_compose_language_service = {},
+  dockerls = {},
+  efm = {
+    filetypes = { 'sh' },
+    init_options = { documentFormatting = true },
+    languages = {
+      sh = {
+        {
+          lintCommand = string.format('shellcheck -f gcc -x -o %s -', table.concat(shellcheck_args, ',')),
+          lintSource = 'shellcheck',
+          lintIgnoreExitCode = true,
+          lintStdin = true,
+          lintFormats = {
+            '%f:%l:%c: %trror: %m',
+            '%f:%l:%c: %tarning: %m',
+            '%f:%l:%c: %tote: %m',
+          },
+        },
+        {
+          formatCommand = 'shfmt -i 4 -filename "${INPUT}" -',
+          formatStdin = true,
+        },
+      }
+    },
+  },
+  lua_ls = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+    },
+  },
+  pyright = {
+    disableOrganizeImports = true,
+    python = {
+      analysis = {
+        autoImportCompletions = true,
+      },
+    },
+  },
+  sqlls = {},
+}
+
+
+-- Setup neovim lua configuration
+require('neodev').setup()
+
 
 require('mason').setup()
 -- Ensure the servers above are installed
