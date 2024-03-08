@@ -16,6 +16,12 @@ else
     exit 1
 fi
 
+install_packages() {
+    if [[ -e "homebrew-packages.txt" ]]; then
+        xargs brew install <"homebrew-packages.txt"
+    fi
+}
+
 setup_homebrew() {
     if ! command -v brew >/dev/null 2>&1; then
         install_homebrew
@@ -36,7 +42,10 @@ setup_homebrew() {
 }
 
 install_homebrew() {
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if ! command -v brew &>/dev/null; then
+        printf "Install Homebrew\n"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 }
 
 # Install macOS developer tools if necessary
@@ -51,5 +60,6 @@ xcode_install() {
 
 xcode_install
 setup_homebrew
+install_packages
 
 printf "Successfully installed homebrew\n"

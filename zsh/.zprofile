@@ -1,5 +1,8 @@
 SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
+# Linux handles this automatically, but I assume macOS doesn't since it hates freedom
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 # We need this global because pyenv on macOS fucks up without doing homebrew stuff
 # Figure out where homebrew lives (if installed) and get PATH and such updated
 setup_homebrew ()
