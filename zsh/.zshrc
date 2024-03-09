@@ -86,6 +86,9 @@ esac
 
 source $ZSH/oh-my-zsh.sh
 
+# Prevent shell completion from chopping off spaces before & and |
+ZLE_SPACE_SUFFIX_CHARS=$'&|'
+
 # I disagree with some of oh-my-zsh's opinions
 unsetopt sharehistory
 
