@@ -67,6 +67,9 @@ null_ls.setup{
     null_ls.builtins.formatting.isort.with({
       extra_args = {'--profile', 'black'},
     }),
+    null_ls.builtins.diagnostics.pylint.with({
+      diagnostics_format = "[#{c}] #{m} (#{s})",
+    }),
   },
   capabilities = capabilities,
 }
