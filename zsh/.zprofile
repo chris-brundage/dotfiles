@@ -38,6 +38,9 @@ setup_pyenv
 
 [[ -d "${HOME}/bin" ]] && export PATH="${HOME}/bin:${PATH}"
 
+# Rust
+[[ -d "${HOME}/.cargo/bin" ]] && export PATH="${HOME}/.cargo/bin:${PATH}"
+
 # Python 3 support for gcloud
 export CLOUDSDK_PYTHON=python3
 

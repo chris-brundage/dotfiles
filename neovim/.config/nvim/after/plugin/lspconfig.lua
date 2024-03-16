@@ -145,4 +145,7 @@ mason_lspconfig.setup_handlers {
   end
 }
 
+-- LSPs managed outside of mason
+require('lspconfig').jinja_lsp.setup{}
+
 -- vim: ts=2 sts=2 sw=2 et
