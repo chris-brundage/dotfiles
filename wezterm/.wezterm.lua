@@ -8,6 +8,9 @@ config.hide_tab_bar_if_only_one_tab = true
 config.scrollback_lines = 10000
 config.pane_focus_follows_mouse = true
 
+config.font = wezterm.font('Monaco')
+config.font_size = 12
+
 -- config.window_background_image = os.getenv('HOME') .. '/Pictures/landscape_extraterrestrial_rocks_130767_3840x2160.jpg'
 config.window_background_image = os.getenv('HOME') .. '/Pictures/milky_way_starry_sky_stars_128523_6016x4016.jpg'
 config.window_background_image_hsb = {
