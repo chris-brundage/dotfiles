@@ -8,9 +8,10 @@ config.hide_tab_bar_if_only_one_tab = true
 config.scrollback_lines = 10000
 config.pane_focus_follows_mouse = true
 
-config.window_background_image = os.getenv('HOME') .. '/Pictures/landscape_extraterrestrial_rocks_130767_3840x2160.jpg'
+-- config.window_background_image = os.getenv('HOME') .. '/Pictures/landscape_extraterrestrial_rocks_130767_3840x2160.jpg'
+config.window_background_image = os.getenv('HOME') .. '/Pictures/milky_way_starry_sky_stars_128523_6016x4016.jpg'
 config.window_background_image_hsb = {
-  brightness = 0.04,
+  brightness = 0.06,
 }
 
 config.audible_bell = "Disabled"
