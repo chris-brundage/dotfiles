@@ -3,6 +3,25 @@ local config = {}
 
 config.color_scheme = 'iTerm2 Pastel Dark Background'
 
+config.cursor_blink_rate = 800
+config.hide_tab_bar_if_only_one_tab = true
+config.scrollback_lines = 10000
+config.pane_focus_follows_mouse = true
+
+config.window_background_image = os.getenv('HOME') .. '/Pictures/landscape_extraterrestrial_rocks_130767_3840x2160.jpg'
+config.window_background_image_hsb = {
+  brightness = 0.04,
+}
+
+config.audible_bell = "Disabled"
+config.visual_bell = {
+  fade_in_function = 'Ease',
+  fade_out_function = 'Ease',
+  fade_in_duration_ms = 200,
+  fade_out_duration_ms = 300,
+  target = 'CursorColor',
+}
+
 config.keys = {
   {
     key = 'd',
