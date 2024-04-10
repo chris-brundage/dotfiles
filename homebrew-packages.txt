@@ -1,5 +1,6 @@
 astro
 deno
+fd
 gnu-sed
 imagemagick
 lua

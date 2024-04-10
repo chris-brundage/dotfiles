@@ -92,6 +92,9 @@ ZLE_SPACE_SUFFIX_CHARS=$'&|'
 # I disagree with some of oh-my-zsh's opinions
 unsetopt sharehistory
 
+# Keep bash style behavior for ^U
+bindkey \^U backward-kill-line
+
 alias ls='ls -a' 
 alias ll='ls -ahl'
 alias rm='rm -i'
