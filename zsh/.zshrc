@@ -149,5 +149,20 @@ load_env_file ()
     set +o allexport
 }
 
+# 
+# Begin work specific stuff
+#
+cdastro ()
+{
+    activate_venv astro
+    cd ~/src/bi-astronomer
+}
+
+cddbt ()
+{
+    activate_venv astro
+    cd ~/src/bi-astronomer/dags/dbt
+}
+
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"
