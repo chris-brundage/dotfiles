@@ -25,4 +25,6 @@ fi
 # VSCode...I have to use it for some projects at work. Sad :(
 [[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]] && export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+export LANG="en_US.UTF-8"
+
 # vim: set ft=sh:
