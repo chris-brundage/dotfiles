@@ -17,3 +17,4 @@ shfmt
 stow
 tmux
 zsh-completions
+homebrew/cask-fonts/font-jetbrains-mono-nerd-font

@@ -1217,11 +1217,11 @@
 			<key>Name</key>
 			<string>localhost</string>
 			<key>Non Ascii Font</key>
-			<string>Monaco 12</string>
+			<string>JetBrainsMonoNFM-Regular 12</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Monaco 12</string>
+			<string>JetBrainsMonoNFM-Regular 12</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>

@@ -17,9 +17,11 @@ else
 fi
 
 install_packages() {
-    if [[ -e "homebrew-packages.txt" ]]; then
-        xargs brew install <"homebrew-packages.txt"
-    fi
+    [[ -e "homebrew-packages.txt" ]] && xargs brew install <"homebrew-packages.txt"
+}
+
+install_casks() {
+    [[ -e "homebrew-casks.txt" ]] && xargs brew tap <"homebrew-casks.txt"
 }
 
 setup_homebrew() {
@@ -60,6 +62,7 @@ xcode_install() {
 
 xcode_install
 setup_homebrew
+install_casks
 install_packages
 
 printf "Successfully installed homebrew\n"
