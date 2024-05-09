@@ -2,7 +2,12 @@
 [[ -d /usr/local/opt/redis/bin ]] && export PATH="/usr/local/opt/redis/bin:${PATH}"
 
 [[ -d "/opt/snowflake/snowcd" ]] && export PATH="/opt/snowflake/snowcd:${PATH}"
-[[ -d "/Applications/SnowSQL.app/Contents/MacOS" ]] && export PATH="/Applications/SnowSQL.app/Contents/MacOS:${PATH}"
+
+if [[ -e "/Applications/SnowSQL.app" ]]; then
+    export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+elif [[ -e "${HOME}/Applications/SnowSQL.app" ]]; then
+    export PATH="${HOME}/Applications/SnowSQL.app/Contents/MacOS:${PATH}"
+fi
 
 
 # Go stuff

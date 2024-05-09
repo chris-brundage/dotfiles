@@ -54,10 +54,3 @@ case "${SYSTEM_OS}" in
     *) 
     ;;
 esac
-
-# added by Snowflake SnowSQL installer v1.2
-if [[ -e "/Applications/SnowSQL.app" ]]; then
-    export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
-elif [[ -e "${HOME}/Applications/SnowSQL.app" ]]; then
-    export PATH="${HOME}/Applications/SnowSQL.app/Contents/MacOS:${PATH}"
-fi
