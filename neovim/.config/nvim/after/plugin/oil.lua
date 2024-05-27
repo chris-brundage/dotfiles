@@ -7,16 +7,22 @@ oil.setup({
 })
 
 -- Allow my muscle memory from netrw to still work
-vim.api.nvim_create_user_command('Ex', function ()
-  oil.open(vim.fn.expand('%:p:h'))
-end, {})
+vim.api.nvim_create_user_command('Ex', function(cmd_args)
+  local dir = string.len(cmd_args['args']) > 0 and cmd_args['args'] or '%:p:h'
 
-vim.api.nvim_create_user_command('Vex', function ()
-  vim.cmd('vsp ' .. vim.fn.expand('%:p:h'))
-end, {})
+  oil.open(vim.fn.expand(dir))
+end, { nargs = '?', complete = 'dir' })
 
-vim.api.nvim_create_user_command('Hex', function ()
-  vim.cmd('sp ' .. vim.fn.expand('%:p:h'))
-end, {})
+vim.api.nvim_create_user_command('Vex', function(cmd_args)
+  local dir = string.len(cmd_args['args']) > 0 and cmd_args['args'] or '%:p:h'
+
+  vim.cmd('vsp ' .. vim.fn.expand(dir))
+end, { nargs = '?', complete = 'dir' })
+
+vim.api.nvim_create_user_command('Hex', function(cmd_args)
+  local dir = string.len(cmd_args['args']) > 0 and cmd_args['args'] or '%:p:h'
+
+  vim.cmd('sp ' .. vim.fn.expand(dir))
+end, { nargs = '?', complete = 'dir' })
 
 vim.keymap.set('n', '<leader>b', '<cmd>Oil --float<cr>', {})
