@@ -67,7 +67,7 @@ ZSH_CUSTOM="${HOME}/.oh-my-zsh-custom"
 
 case "${SYSTEM_OS}" in
     darwin)
-        plugins=(git direnv ripgrep safe-paste iterm2)
+        plugins=(git direnv safe-paste iterm2)
         # Home brew autocompletion stuff needs to happen before we source oh my zsh
         if command -v brew &>/dev/null; then
             FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -78,7 +78,7 @@ case "${SYSTEM_OS}" in
         fi
     ;;
     linux)
-        plugins=(git direnv ripgrep safe-paste)
+        plugins=(git direnv safe-paste)
     ;;
     *) 
     ;;
