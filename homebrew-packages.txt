@@ -1,7 +1,10 @@
 astro
+bat
+chafa
 deno
 fd
 fzf
+git-delta
 gnu-sed
 imagemagick
 lua
@@ -16,6 +19,8 @@ ripgrep
 shellcheck
 shfmt
 stow
+the_silver_searcher
 tmux
+universal-ctags
 zsh-completions
 homebrew/cask-fonts/font-jetbrains-mono-nerd-font

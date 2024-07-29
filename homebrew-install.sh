@@ -21,7 +21,9 @@ install_packages() {
 }
 
 install_casks() {
-    [[ -e "homebrew-casks.txt" ]] && xargs brew tap <"homebrew-casks.txt"
+    if [[ -e "homebrew-casks.txt" && $(wc -l <"homebrew-casks.txt") -gt 0 ]]; then 
+        xargs brew tap <"homebrew-casks.txt"
+    fi
 }
 
 setup_homebrew() {
