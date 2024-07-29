@@ -24,5 +24,3 @@ vim.api.nvim_create_user_command('Hex', function(cmd_args)
 
   vim.cmd('sp ' .. vim.fn.expand(dir))
 end, { nargs = '?', complete = 'dir' })
-
-vim.keymap.set('n', '<leader>b', '<cmd>Oil --float<cr>', {})
