@@ -32,6 +32,18 @@ setup_pyenv ()
     fi
 }
 
+case "${SYSTEM_OS}" in
+    darwin)
+        [[ -f "${HOME}/.zprofile-macos" ]] && source "${HOME}/.zprofile-macos"
+    ;;
+    linux)
+        [[ -f "${HOME}/.zprofile-linux" ]] && source "${HOME}/.zprofile-linux"
+    ;;
+    *)
+    ;;
+esac
+
+#
 # We need this global because pyenv on macOS fucks up without doing homebrew stuff
 [[ "${SYSTEM_OS}" == "darwin" ]] && setup_homebrew
 setup_pyenv
@@ -43,14 +55,3 @@ setup_pyenv
 
 # Python 3 support for gcloud
 export CLOUDSDK_PYTHON=python3
-
-case "${SYSTEM_OS}" in
-    darwin) 
-        [[ -f "${HOME}/.zprofile-macos" ]] && source "${HOME}/.zprofile-macos"
-    ;;
-    linux)
-        [[ -f "${HOME}/.zprofile-linux" ]] && source "${HOME}/.zprofile-linux"
-    ;;
-    *) 
-    ;;
-esac

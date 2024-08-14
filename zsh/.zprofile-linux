@@ -16,4 +16,6 @@ if [[ -d "${HOME}/.deno" ]]; then
   export PATH="${DENO_INSTALL}/bin:${PATH}"
 fi
 
+[[ -d "${HOME}/.pyenv/bin" ]] && export PATH="${HOME}/.pyenv/bin:${PATH}"
+
 # vim: set ft=sh:
