@@ -22,6 +22,7 @@ fi
 [[ -f ~/.adbrc ]] && source ~/.adbrc
 
 [[ -d "${HOME}/bin" ]] && export PATH="${HOME}/bin:${PATH}"
+[[ -d "${HOME}/scripts" ]] && export PATH="${HOME}/scripts:${PATH}"
 
 case "${SYSTEM_OS}" in
 darwin)

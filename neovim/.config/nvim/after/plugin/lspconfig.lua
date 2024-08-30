@@ -72,7 +72,7 @@ null_ls.setup{
     }),
     -- null_ls.builtins.diagnostics.mypy.with({
     --   extra_args = {
-    --     '--python-executable', os.getenv("HOME") .. "/bin/mypy_python.sh",
+    --     '--python-executable', os.getenv("HOME") .. "/scripts/mypy_python.sh",
     --     '--disallow-untyped-defs',
     --   },
     -- })

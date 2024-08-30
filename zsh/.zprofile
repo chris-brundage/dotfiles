@@ -49,6 +49,7 @@ esac
 setup_pyenv
 
 [[ -d "${HOME}/bin" ]] && export PATH="${HOME}/bin:${PATH}"
+[[ -d "${HOME}/scripts" ]] && export PATH="${HOME}/scripts:${PATH}"
 
 # Rust
 [[ -d "${HOME}/.cargo/bin" ]] && export PATH="${HOME}/.cargo/bin:${PATH}"
