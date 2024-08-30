@@ -16,3 +16,9 @@ vim.keymap.set('n', '<leader>b', '<cmd>Files<cr>', {})
 -- Grep!
 vim.keymap.set('n', '<leader>ss', '<cmd>Rg<cr>', {})
 vim.keymap.set('n', '<leader>gf', '<cmd>GFiles<cr>', { desc = 'Search [G]it [F]iles' })
+
+-- Thanks Primeagen
+vim.keymap.set({'n', 'v'}, '<leader>d', [["_d]])
+vim.keymap.set({'n', 'v'}, '<leader>y', [["+y]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
+vim.keymap.set('x', '<leader>p', [["_dP]])
