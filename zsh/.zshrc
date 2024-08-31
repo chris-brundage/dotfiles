@@ -91,6 +91,7 @@ ZLE_SPACE_SUFFIX_CHARS=$'&|'
 
 # I disagree with some of oh-my-zsh's opinions
 unsetopt sharehistory
+unsetopt auto_remove_slash
 
 # Keep bash style behavior for ^U
 bindkey \^U backward-kill-line
