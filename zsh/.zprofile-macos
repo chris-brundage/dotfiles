@@ -1,18 +1,16 @@
-# shellcheck disable=all
 [[ -d /usr/local/opt/redis/bin ]] && export PATH="/usr/local/opt/redis/bin:${PATH}"
 
 [[ -d "/opt/snowflake/snowcd" ]] && export PATH="/opt/snowflake/snowcd:${PATH}"
 
 if [[ -e "/Applications/SnowSQL.app" ]]; then
-    export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+    export PATH="/Applications/SnowSQL.app/Contents/MacOS:${PATH}"
 elif [[ -e "${HOME}/Applications/SnowSQL.app" ]]; then
     export PATH="${HOME}/Applications/SnowSQL.app/Contents/MacOS:${PATH}"
 fi
 
-
 # Go stuff
 GOPATH="${HOME}/src/go"
-if [[ -d "${GOPATH}" ]]; then 
+if [[ -d "${GOPATH}" ]]; then
     export GOPATH="${GOPATH}"
     export PATH="${PATH}:${GOPATH}"
     export PATH="${PATH}:${GOPATH}/bin"
@@ -22,13 +20,13 @@ fi
 if [[ -n "${HOMEBREW_PREFIX}" ]]; then
     # The macOS version of sed is trash
     sed_path="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin"
-    [[ -d "$sed_path" ]] &&  export PATH="${sed_path}:${PATH}"
+    [[ -d "${sed_path}" ]] && export PATH="${sed_path}:${PATH}"
 
-    [[ -d "${HOMEBREW_PREFIX}/opt/mysql@8.0/bin" ]] && export PATH="${HOMEBREW_PREFIX}/opt/mysql@8.0/bin:$PATH"
+    [[ -d "${HOMEBREW_PREFIX}/opt/mysql@8.0/bin" ]] && export PATH="${HOMEBREW_PREFIX}/opt/mysql@8.0/bin:${PATH}"
 fi
 
 # VSCode...I have to use it for some projects at work. Sad :(
-[[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]] && export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+[[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]] && export PATH="${PATH}:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 export LANG="en_US.UTF-8"
 

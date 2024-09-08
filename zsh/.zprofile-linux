@@ -12,8 +12,8 @@ fi
 # fi
 
 if [[ -d "${HOME}/.deno" ]]; then
-  export DENO_INSTALL="${HOME}/.deno"
-  export PATH="${DENO_INSTALL}/bin:${PATH}"
+    export DENO_INSTALL="${HOME}/.deno"
+    export PATH="${DENO_INSTALL}/bin:${PATH}"
 fi
 
 [[ -d "${HOME}/.pyenv/bin" ]] && export PATH="${HOME}/.pyenv/bin:${PATH}"

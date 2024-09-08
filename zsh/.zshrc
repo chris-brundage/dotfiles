@@ -24,7 +24,7 @@ CASE_SENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -66,22 +66,21 @@ ZSH_CUSTOM="${HOME}/.oh-my-zsh-custom"
 # Add wisely, as too many plugins slow down shell startup.
 
 case "${SYSTEM_OS}" in
-    darwin)
-        plugins=(git direnv safe-paste iterm2)
-        # Home brew autocompletion stuff needs to happen before we source oh my zsh
-        if command -v brew &>/dev/null; then
-            FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+darwin)
+    plugins=(git direnv safe-paste iterm2)
+    # Home brew autocompletion stuff needs to happen before we source oh my zsh
+    if command -v brew &>/dev/null; then
+        FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
-            if [[ -d "$(brew --prefix)/share/zsh-completions" ]]; then
-                FPATH="$(brew --prefix)/share/zsh-completions:${FPATH}"
-            fi
+        if [[ -d "$(brew --prefix)/share/zsh-completions" ]]; then
+            FPATH="$(brew --prefix)/share/zsh-completions:${FPATH}"
         fi
+    fi
     ;;
-    linux)
-        plugins=(git direnv safe-paste)
+linux)
+    plugins=(git direnv safe-paste)
     ;;
-    *) 
-    ;;
+*) ;;
 esac
 
 source $ZSH/oh-my-zsh.sh
@@ -96,7 +95,7 @@ unsetopt auto_remove_slash
 # Keep bash style behavior for ^U
 bindkey \^U backward-kill-line
 
-alias ls='ls -a' 
+alias ls='ls -a'
 alias ll='ls -ahl'
 alias rm='rm -i'
 
@@ -111,8 +110,7 @@ command -v fzf &>/dev/null && source <(fzf --zsh)
 command -v fd &>/dev/null && export FZF_DEFAULT_COMMAND="fd -H"
 
 # Use pyenv to activate the provided virtual environment name
-activate_venv ()
-{
+activate_venv() {
     venv_name="${1}"
     if [[ -z "${venv_name}" ]]; then
         printf "A virtual environment name is required.\n"
@@ -123,11 +121,11 @@ activate_venv ()
 
         if [[ "${pyenv_version}" != $venv_name* && "${pyenv_version}" != *PYENV_VERSION* ]]; then
             # Don't fail the cd on account of the virtualenv not existing. pyenv will let us know
-            pyenv activate $venv_name || true
+            pyenv activate "${venv_name}" || true
         elif [[ "${pyenv_version}" != $venv_name* ]]; then
-            printf "Deactivating virtualenv %s\n" $pyenv_version
+            printf "Deactivating virtualenv %s\n" "${pyenv_version}"
             pyenv deactivate || true
-            pyenv activate $venv_name || true
+            pyenv activate "${venv_name}" || true
         fi
     else
         printf "It looks like pyenv is not installed. You should probably fix that.\n"
@@ -135,18 +133,16 @@ activate_venv ()
 }
 
 case "${SYSTEM_OS}" in
-    darwin)
-        [[ -f "${HOME}/.zshrc-macos" ]] && source "${HOME}/.zshrc-macos"
+darwin)
+    [[ -f "${HOME}/.zshrc-macos" ]] && source "${HOME}/.zshrc-macos"
     ;;
-    linux)
-        [[ -f "${HOME}/.zshrc-linux" ]] && source "${HOME}/.zshrc-linux"
+linux)
+    [[ -f "${HOME}/.zshrc-linux" ]] && source "${HOME}/.zshrc-linux"
     ;;
-    *) 
-    ;;
+*) ;;
 esac
 
-load_env_file ()
-{
+load_env_file() {
     env_file="${1}"
 
     # https://gist.github.com/mihow/9c7f559807069a03e302605691f85572?permalink_comment_id=4172996#gistcomment-4172996
@@ -156,17 +152,15 @@ load_env_file ()
     set +o allexport
 }
 
-# 
+#
 # Begin work specific stuff
 #
-cdastro ()
-{
+cdastro() {
     activate_venv astro
     cd ~/src/bi-astronomer
 }
 
-cddbt ()
-{
+cddbt() {
     activate_venv astro
     cd ~/src/bi-astronomer/dags/dbt
 }

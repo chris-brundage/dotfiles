@@ -83,6 +83,9 @@ null_ls.setup{
 -- LSPs we want to install and manage via mason
 -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#automatic-server-setup-advanced-feature
 local servers = {
+  bashls = {
+    filetypes = { 'sh', 'zsh' },
+  },
   clangd = {},
   docker_compose_language_service = {},
   dockerls = {},
