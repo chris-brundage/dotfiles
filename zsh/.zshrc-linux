@@ -5,7 +5,12 @@ detect_display_server() {
         printf "x11"
     # Thanks man https://unix.stackexchange.com/a/325972
     elif command -v loginctl &>/dev/null; then
-        loginctl show-session $(awk '/tty/ {print $1}' <(loginctl)) -p Type | awk -F= '{print $2}'
+        if [[ -n "${XDG_SESSION_ID:-}" ]]; then
+            loginctl show-session "${XDG_SESSION_ID}" -p Type | awk -F= '{print $2}'
+        # Strange if the above didn't work, but yolo just guess
+        else
+            loginctl show-session $(awk '/tty/ {print $1}' <(loginctl) | grep $(whoami)) -p Type | awk -F= '{print $2}'
+        fi
     fi
 }
 
