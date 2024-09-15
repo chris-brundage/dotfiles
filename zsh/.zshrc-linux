@@ -1,4 +1,9 @@
 alias ls='ls -a --color=auto'
 alias ll='ls -ahl --color=auto'
 
+# Include an alias to generate a password in clopboard since the LastPass extension sucks
+if command -v gpg; then
+    alias genpw='gpg --gen-random --armor 1 16 | wl-copy -n 2>/dev/null'
+fi
+
 # vim: set ft=sh:

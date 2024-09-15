@@ -1,15 +1,15 @@
+# OS specific aliasing
+
+# Include an alias to generate a password in clopboard since the LastPass extension sucks
+if command -v gpg; then
+    alias genpw='gpg --gen-random --armor 1 16 | pbcopy'
+fi
+
 # The next line updates PATH for the Google Cloud SDK.
 [[ -f "${HOME}/src/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/path.zsh.inc"
 
 # The next line enables shell command completion for gcloud.
 [[ -f "${HOME}/src/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/completion.zsh.inc"
-
-# Ruby!
-[[ -d /opt/homebrew/opt/ruby@3.1/bin ]] && export PATH="/opt/homebrew/opt/ruby@3.1/bin:${PATH}"
-
-#
-# End Work stuff
-#
 
 # iTerm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
