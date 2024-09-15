@@ -1,7 +1,7 @@
 # OS specific aliasing
 
 # Include an alias to generate a password in clopboard since the LastPass extension sucks
-if command -v gpg; then
+if command -v gpg &>/dev/null; then
     alias genpw='gpg --gen-random --armor 1 16 | pbcopy'
 fi
 

@@ -1,9 +1,30 @@
+detect_display_server() {
+    if env | grep -q WAYLAND_DISPLAY; then
+        printf "wayland"
+    elif env | grep -qw DISPLAY; then
+        printf "x11"
+    # Thanks man https://unix.stackexchange.com/a/325972
+    elif command -v loginctl &>/dev/null; then
+        loginctl show-session $(awk '/tty/ {print $1}' <(loginctl)) -p Type | awk -F= '{print $2}'
+    fi
+}
+
 alias ls='ls -a --color=auto'
 alias ll='ls -ahl --color=auto'
 
 # Include an alias to generate a password in clopboard since the LastPass extension sucks
-if command -v gpg; then
-    alias genpw='gpg --gen-random --armor 1 16 | wl-copy -n 2>/dev/null'
+if command -v gpg &>/dev/null; then
+    case "$(detect_display_server)" in
+        wayland)
+            alias genpw='gpg --gen-random --armor 1 16 | wl-copy -n 2>/dev/null'
+            ;;
+        x11)
+            alias genpw='gpg --gen-random --armor 1 16 | xsel -i'
+            ;;
+        *)
+            alias genpw='gpg --gen-random --armor 1 16'
+            ;;
+    esac
 fi
 
 # vim: set ft=sh:
