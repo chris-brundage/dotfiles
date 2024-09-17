@@ -7,7 +7,10 @@ require("aerial").setup({
   end,
   layout = {
     min_width = 20,
-  }
+  },
+  default_direction = "prefer_left",
+  autojump = true,
+  close_automatic_events = { "unfocus" },
 })
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>oo", "<cmd>AerialToggle<CR>")
