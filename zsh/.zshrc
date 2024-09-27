@@ -165,5 +165,14 @@ cddbt() {
     cd ~/src/bi-astronomer/dags/dbt
 }
 
+[[ -e "${HOME}/bin/google-cloud-sdk/bin" ]] && export PATH="${PATH}:${HOME}/bin/google-cloud-sdk/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+[[ -f "${HOME}/bin/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/path.zsh.inc"
+
+# The next line enables shell command completion for gcloud.
+[[ -f "${HOME}/bin/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/completion.zsh.inc"
+
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"
+
