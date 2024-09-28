@@ -1,5 +1,6 @@
 vim.filetype.add({
   extension = {
-    xml = '.plist'
+    -- xml = 'plist'
+    plist = 'xml'
   }
 })
