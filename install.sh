@@ -1,12 +1,17 @@
 #!/bin/bash
 SRC="${1:-${HOME}/src/dotfiles}"
 
+OS="$(uname -s)"
+
 # These are not true dotfiles (e.g. iTerm settings), but it's nice to have them
 # in the repo. Packages in this array will be kept away from stow
 excluded_packages=(
     iterm
     windows
 )
+if [[ "${OS}" != "Darwin" ]]; then
+    excluded_packages+=(macos)
+fi
 
 find_cmd=(
     "find" "${SRC}"
