@@ -118,6 +118,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  phpactor = {},
   pyright = {
     disableOrganizeImports = true,
     python = {
