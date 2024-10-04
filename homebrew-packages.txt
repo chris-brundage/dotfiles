@@ -23,4 +23,5 @@ the_silver_searcher
 tmux
 universal-ctags
 zsh-completions
-homebrew/cask-fonts/font-jetbrains-mono-nerd-font
+direnv
+font-jetbrains-mono-nerd-font

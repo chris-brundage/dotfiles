@@ -47,5 +47,10 @@ linux)
 *) ;;
 esac
 
+
+if command -v direnv &>/dev/null; then
+    eval "$(direnv hook bash)"
+fi
+
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e ~/.global.env ]] && source ~/.global.env
