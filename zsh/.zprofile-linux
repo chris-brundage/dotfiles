@@ -7,15 +7,34 @@ if command -v go >/dev/null 2>&1; then
     fi
 fi
 
-# if [[ -z "${SSH_AGENT_PID:-}" ]]; then
-#     eval "$(ssh-agent -s 2>/dev/null)" >/dev/null
-# fi
-
 if [[ -d "${HOME}/.deno" ]]; then
     export DENO_INSTALL="${HOME}/.deno"
     export PATH="${DENO_INSTALL}/bin:${PATH}"
 fi
 
 [[ -d "${HOME}/.pyenv/bin" ]] && export PATH="${HOME}/.pyenv/bin:${PATH}"
+
+detect_display_server() {
+    if env | grep -q WAYLAND_DISPLAY; then
+        printf "wayland"
+    elif env | grep -qw DISPLAY; then
+        printf "x11"
+    # Thanks man https://unix.stackexchange.com/a/325972
+    elif command -v loginctl &>/dev/null; then
+        if [[ -n "${XDG_SESSION_ID:-}" ]]; then
+            loginctl show-session "${XDG_SESSION_ID}" -p Type | awk -F= '{print $2}'
+        # Strange if the above didn't work, but yolo just guess
+        else
+            loginctl show-session $(awk '/tty/ {print $1}' <(loginctl) | grep $(whoami)) -p Type | awk -F= '{print $2}'
+        fi
+    fi
+}
+
+display_server="$(detect_display_server)"
+
+# Fire up ssh-agent if we aren't running in a GUI or we're root
+if [[ ("${display_server}" != "wayland" && "${display_server}" != "x11") || "${UID}" -eq 0 ]] && [[ -z "${SSH_AGENT_PID:-}" ]]; then
+    eval "$(ssh-agent -s 2>/dev/null)" >/dev/null
+fi
 
 # vim: set ft=sh:
