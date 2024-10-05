@@ -1,3 +1,6 @@
+alias ls='ls -a --color=auto'
+alias ll='ls -ahl --color=auto'
+
 detect_display_server() {
     if env | grep -q WAYLAND_DISPLAY; then
         printf "wayland"
@@ -14,21 +17,25 @@ detect_display_server() {
     fi
 }
 
-alias ls='ls -a --color=auto'
-alias ll='ls -ahl --color=auto'
+display_server="$(detect_display_server)"
+
+# Fire up ssh-agent if we aren't running in a GUI or we're root
+if [[ ("${display_server}" != "wayland" && "${display_server}" != "x11") || "${UID}" -eq 0 ]] && [[ -z "${SSH_AGENT_PID:-}" ]]; then
+    eval "$(ssh-agent -s 2>/dev/null)" >/dev/null
+fi
 
 # Include an alias to generate a password in clopboard since the LastPass extension sucks
 if command -v gpg &>/dev/null; then
-    case "$(detect_display_server)" in
-        wayland)
-            alias genpw='gpg --gen-random --armor 1 16 | wl-copy -n 2>/dev/null'
-            ;;
-        x11)
-            alias genpw='gpg --gen-random --armor 1 16 | xsel -i'
-            ;;
-        *)
-            alias genpw='gpg --gen-random --armor 1 16'
-            ;;
+    case "${display_server}" in
+    wayland)
+        alias genpw='gpg --gen-random --armor 1 16 | wl-copy -n 2>/dev/null'
+        ;;
+    x11)
+        alias genpw='gpg --gen-random --armor 1 16 | xsel -i'
+        ;;
+    *)
+        alias genpw='gpg --gen-random --armor 1 16'
+        ;;
     esac
 fi
 
