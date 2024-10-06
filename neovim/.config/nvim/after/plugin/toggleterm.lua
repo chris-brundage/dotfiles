@@ -5,4 +5,4 @@ end
 require('toggleterm').setup {}
 
 vim.keymap.set('n', '<leader>tt', vim.cmd.ToggleTerm)
-vim.keymap.set('n', '<leader>ttf', function() vim.cmd.ToggleTerm("direction='float'") end)
+vim.keymap.set('n', '<leader>ftt', function() vim.cmd.ToggleTerm("direction='float'") end)
