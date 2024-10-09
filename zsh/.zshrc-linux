@@ -1,5 +1,7 @@
 alias ls='ls -a --color=auto'
 alias ll='ls -ahl --color=auto'
+# Muscle memory from years of macOS use
+command -v xdg-open &>/dev/null && alias open='xdg-open'
 
 detect_display_server() {
     if env | grep -q WAYLAND_DISPLAY; then
@@ -19,8 +21,9 @@ detect_display_server() {
 
 display_server="$(detect_display_server)"
 
-# Fire up ssh-agent if we aren't running in a GUI or we're root
-if [[ ("${display_server}" != "wayland" && "${display_server}" != "x11") || "${UID}" -eq 0 ]] && [[ -z "${SSH_AGENT_PID:-}" ]]; then
+# Fire up ssh-agent if we're root
+# We can't reliably cleanup ssh-agent processes for KDE users (aka me) without messing up kwallet ssh keypass stuff
+if [[ "${UID}" -eq 0 && -z "${SSH_AGENT_PID:-}" ]]; then
     eval "$(ssh-agent -s 2>/dev/null)" >/dev/null
 fi
 

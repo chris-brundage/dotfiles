@@ -1,7 +1,11 @@
 # shellcheck disable=all
 
-if [[ -n "${SSH_AGENT_PID:-}" ]]; then
-    kill "${SSH_AGENT_PID}" >/dev/null 2>&1 || true
+# Kill running ssh-agent processes only if we're root
+# Doing this for a regular user doesn't play nicely with kwallet ssh keypass
+if [[ "${UID}" -eq 0 ]]; then
+    if [[ -n "${SSH_AGENT_PID:-}" ]]; then
+        kill "${SSH_AGENT_PID}" >/dev/null 2>&1 || true
+    fi
 fi
 
 # vim: set ft=sh:

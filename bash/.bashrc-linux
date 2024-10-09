@@ -2,7 +2,7 @@
 # shellcheck disable=SC1090,SC1091
 
 # I like to give root a different PS1
-if [[ "$(whoami)" == "root" ]]; then
+if [[ "${UID}" -eq 0 ]]; then
     export PS1="\[\033[01;31m\]$(hostname)\[\033[01;32m\] \w $\[\033[00m\] "
 else
     export PS1="\[\033[0;37m\]\u@\h\[\033[0;32m\] \w \$\[\033[00m\] "
@@ -17,5 +17,7 @@ esac
 
 alias ls='ls -a --color=auto'
 alias ll='ls -ahl --color=auto'
+# Muscle memory from years of macOS use
+command -v xdg-open &>/dev/null && alias open='xdg-open'
 
 # vim: set ft=sh:
