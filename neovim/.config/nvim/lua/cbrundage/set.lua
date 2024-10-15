@@ -5,6 +5,8 @@ vim.g.maplocalleader = ' '
 vim.opt.modeline = true
 vim.opt.modelines = 5
 
+vim.opt.exrc = true
+
 vim.wo.number = true
 vim.opt.nu = true
 vim.opt.relativenumber = true
