@@ -61,21 +61,13 @@ local null_ls = require('null-ls')
 null_ls.setup{
   on_attach = on_attach,
   sources = {
-    null_ls.builtins.formatting.black.with({
-      extra_args = {'-l', '79'},
-    }),
+    null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.isort.with({
       extra_args = {'--profile', 'black'},
     }),
     null_ls.builtins.diagnostics.pylint.with({
       diagnostics_format = "[#{c}] #{m} (#{s})",
     }),
-    -- null_ls.builtins.diagnostics.mypy.with({
-    --   extra_args = {
-    --     '--python-executable', os.getenv("HOME") .. "/scripts/mypy_python.sh",
-    --     '--disallow-untyped-defs',
-    --   },
-    -- })
   },
   capabilities = capabilities,
 }
