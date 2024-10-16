@@ -32,7 +32,7 @@ add-zsh-hook precmd gentoo_precmd
 if [[ $(id -u) != 0 ]]; then
     PROMPT='%(!.%B%F{red}.%B%F{green}%n@)%m %F{blue}%(!.%1~.%~) ${vcs_info_msg_0_}%F{blue}%(!.#.$)%k%b%f '
 else
-    PROMPT=$'%{\e[01;31m%}%m %{\e[01;32m%}%0~ ${vcs_info_msg_0_}$ %{\033[00m%}'
+    PROMPT=$'%{\e[01;31m%}%m %{\e[01;32m%}%0~ ${vcs_info_msg_0_}%{\e[01;32m%}$ %{\033[00m%}'
 fi
 
 # vim: set ft=sh:
