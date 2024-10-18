@@ -11,4 +11,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.cmd [[colorscheme catppuccin-mocha]]
+vim.cmd [[colorscheme tokyonight-night]]
