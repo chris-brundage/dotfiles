@@ -121,6 +121,7 @@ local servers = {
     },
   },
   sqlls = {},
+  yamlls = {},
 }
 
 
