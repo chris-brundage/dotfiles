@@ -14,9 +14,4 @@ fi
 # Homebrew PHP 8.2
 [[ -d /opt/homebrew/opt/php@8.2 ]] && export PATH="${PATH}:/opt/homebrew/opt/php@8.2/bin:/opt/homebrew/opt/php@8.2/sbin"
 
-# iTerm shell integration
-if [[ "${LC_TERMINAL:-}" == "iTerm2" ]]; then
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
 # vim: set ft=sh:
