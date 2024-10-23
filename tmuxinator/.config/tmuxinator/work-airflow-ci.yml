@@ -54,7 +54,7 @@ windows:
       layout: tiled
       root: ~/src/bi-astronomer/ci/merge_request
       panes:
-        - 'docker compose up'
+        - 'export AIRFLOW_PROJ_DIR="../.." && docker compose up'
   - snowsql:
       layout: tiled
       panes:
