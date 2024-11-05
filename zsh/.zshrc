@@ -173,8 +173,5 @@ cddbt() {
 # The next line enables shell command completion for gcloud.
 [[ -f "${HOME}/bin/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/completion.zsh.inc"
 
-# Tailscale completion
-command -v tailscale &>/dev/null && eval "$(tailscale completion zsh)"
-
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"

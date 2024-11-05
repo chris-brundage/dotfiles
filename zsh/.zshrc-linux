@@ -42,4 +42,7 @@ if command -v gpg &>/dev/null; then
     esac
 fi
 
+# Tailscale completion
+command -v tailscale &>/dev/null && eval "$(tailscale completion zsh)"
+
 # vim: set ft=sh:
