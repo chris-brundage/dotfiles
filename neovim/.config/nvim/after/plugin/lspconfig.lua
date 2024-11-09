@@ -104,6 +104,7 @@ local servers = {
       }
     },
   },
+  gopls = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
