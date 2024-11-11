@@ -68,6 +68,8 @@ null_ls.setup{
     null_ls.builtins.diagnostics.pylint.with({
       diagnostics_format = "[#{c}] #{m} (#{s})",
     }),
+    null_ls.builtins.formatting.gofmt,
+    null_ls.builtins.formatting.goimports,
   },
   capabilities = capabilities,
 }
