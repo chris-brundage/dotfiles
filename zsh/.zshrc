@@ -173,5 +173,13 @@ cddbt() {
 # The next line enables shell command completion for gcloud.
 [[ -f "${HOME}/bin/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/completion.zsh.inc"
 
+# Load any includes we may have
+# Useful for tools that generate completion scripts in unique ways
+if [[ -d "${HOME}/.shell-includes" ]]; then
+    for f in ${HOME}/.shell-includes/*.sh*(N); do
+        source "${f}"
+    done
+fi
+
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"
