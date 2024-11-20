@@ -60,7 +60,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local null_ls = require('null-ls')
 null_ls.setup {
   on_attach = on_attach,
-  debug = true,
   sources = {
     null_ls.builtins.formatting.isort.with({
       extra_args = { '--profile', 'black' },
