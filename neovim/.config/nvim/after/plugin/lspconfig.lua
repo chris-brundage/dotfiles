@@ -1,5 +1,5 @@
 if vim.g.vscode then
-    do return end
+  do return end
 end
 
 local shellcheck_args = {
@@ -45,7 +45,7 @@ local on_attach = function(_, bufnr)
 
   nmap('<leader>ff', function()
     vim.lsp.buf.format { async = true }
-    end, 'Format Code')
+  end, 'Format Code')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -58,13 +58,14 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local null_ls = require('null-ls')
-null_ls.setup{
+null_ls.setup {
   on_attach = on_attach,
+  debug = true,
   sources = {
-    null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.isort.with({
-      extra_args = {'--profile', 'black'},
+      extra_args = { '--profile', 'black' },
     }),
+    null_ls.builtins.formatting.black,
     null_ls.builtins.diagnostics.pylint.with({
       diagnostics_format = "[#{c}] #{m} (#{s})",
     }),
@@ -103,7 +104,7 @@ local servers = {
           formatCommand = 'shfmt -i 4 -filename "${INPUT}" -',
           formatStdin = true,
         },
-      }
+      },
     },
   },
   gopls = {},
@@ -119,7 +120,6 @@ local servers = {
     python = {
       analysis = {
         autoImportCompletions = true,
-        -- typeCheckingMode = 'off',
       },
     },
   },
