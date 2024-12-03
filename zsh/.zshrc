@@ -173,6 +173,11 @@ cddbt() {
 # The next line enables shell command completion for gcloud.
 [[ -f "${HOME}/bin/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/completion.zsh.inc"
 
+# AWS CLI completion
+if command -v aws_completer &>/dev/null; then
+    complete -C "$(command -v aws_completer)" aws
+fi
+
 # Load any includes we may have
 # Useful for tools that generate completion scripts in unique ways
 if [[ -d "${HOME}/.shell-includes" ]]; then
