@@ -122,6 +122,8 @@ local servers = {
       },
     },
   },
+  terraformls = {},
+  tflint = {},
   sqlls = {},
   yamlls = {},
 }
