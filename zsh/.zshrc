@@ -156,13 +156,15 @@ load_env_file() {
 # Begin work specific stuff
 #
 cdastro() {
-    activate_venv astro
-    cd ~/src/bi-astronomer
+    local astro_dir="${HOME}/src/bi-astronomer"
+    [[ -e "${astro_dir}/.python-version" ]] || activate_venv astro
+    cd "${astro_dir}"
 }
 
 cddbt() {
-    activate_venv astro
-    cd ~/src/bi-astronomer/dags/dbt
+    local dbt_dir="${HOME}/src/bi-astronomer/dags/dbt"
+    [[ -e "${dbt_dir}/.python-version" ]] || activate_venv dbt
+    cd "${dbt_dir}"
 }
 
 [[ -e "${HOME}/bin/google-cloud-sdk/bin" ]] && export PATH="${PATH}:${HOME}/bin/google-cloud-sdk/bin"
