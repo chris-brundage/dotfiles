@@ -54,10 +54,10 @@ windows:
       layout: tiled
       panes:
         - snowsql
-  - dbt-build:
+  - dbt:
       layout: tiled
-      root: ~/src/bi-astronomer.mr
+      root: ~/src/bi-astronomer/dags/dbt
       panes:
-        - 'command -v pyenv &>/dev/null && pyenv activate astro'
+        - 'command -v pyenv &>/dev/null && pyenv activate dbt'
   - scratch:
       layout: tiled
