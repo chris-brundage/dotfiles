@@ -34,3 +34,5 @@ vim.keymap.set({ 'n' }, '<leader>dt', function() require('dapui').toggle() end)
 vim.keymap.set({ 'n' }, '<leader>Bn', '<cmd>bnext<cr>')
 vim.keymap.set({ 'n' }, '<leader>Bp', '<cmd>bprevious<cr>')
 vim.keymap.set({ 'n' }, '<leader>Bd', '<cmd>bdelete<cr>')
+
+vim.keymap.set('n', '<leader>ex', function() require('oil').open() end)
