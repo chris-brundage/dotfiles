@@ -18,6 +18,7 @@ require('telescope').setup {
 -- Extensions
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'aerial')
+pcall(require('telescope').load_extension, 'project')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
