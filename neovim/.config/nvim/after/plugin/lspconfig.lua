@@ -78,18 +78,48 @@ null_ls.setup {
   capabilities = capabilities,
 }
 
--- LSPs we want to install and manage via mason
--- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#automatic-server-setup-advanced-feature
-local servers = {
-  bashls = {
-    filetypes = { 'sh', 'zsh' },
-  },
-  clangd = {},
-  docker_compose_language_service = {},
-  dockerls = {},
-  efm = {
-    filetypes = { 'sh' },
-    init_options = { documentFormatting = true },
+-- Setup neovim lua configuration
+require('neodev').setup()
+
+require('mason').setup()
+-- Ensure the servers above are installed
+local mason_lspconfig = require 'mason-lspconfig'
+
+mason_lspconfig.setup {
+  automatic_enable = true,
+  ensure_installed = {
+    'bashls',
+    'clangd',
+    'docker_compose_language_service',
+    'dockerls',
+    'efm',
+    'gopls',
+    'lua_ls',
+    'phpactor',
+    'pyright',
+    'terraformls',
+    'tflint',
+    'sqlls',
+    'yamlls',
+  }
+}
+
+--
+-- Global LSP configs along with non-default settings for specific LSPs
+--
+vim.lsp.config('*', {
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
+vim.lsp.config('bashls', {
+  filetypes = { 'sh', 'zsh' },
+})
+
+vim.lsp.config('efm', {
+  filetypes = { 'sh' },
+  settings = {
+    documentFormatting = true,
     languages = {
       sh = {
         {
@@ -109,52 +139,27 @@ local servers = {
         },
       },
     },
-  },
-  gopls = {},
-  lua_ls = {
+  }
+})
+
+vim.lsp.config('lua_ls', {
+  settings = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
-  },
-  phpactor = {},
-  pyright = {
+  }
+})
+
+vim.lsp.config('pyright', {
+  settings = {
     disableOrganizeImports = true,
     python = {
       analysis = {
         autoImportCompletions = true,
       },
     },
-  },
-  terraformls = {},
-  tflint = {},
-  sqlls = {},
-  yamlls = {},
-}
-
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
-
-require('mason').setup()
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-      init_options = (servers[server_name] or {}).init_options,
-    }
-  end
-}
+  }
+})
 
 -- vim: ts=2 sts=2 sw=2 et
