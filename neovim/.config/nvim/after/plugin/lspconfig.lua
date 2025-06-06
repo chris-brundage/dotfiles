@@ -95,12 +95,21 @@ mason_lspconfig.setup {
     'efm',
     'gopls',
     'lua_ls',
+    'jsonls',
     'phpactor',
     'pyright',
     'terraformls',
     'tflint',
     'sqlls',
     'yamlls',
+  }
+}
+
+require('mason-tool-installer').setup {
+  ensure_installed = {
+    'goimports',
+    'jq',
+    'tflint',
   }
 }
 
