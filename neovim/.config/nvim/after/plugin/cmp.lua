@@ -1,5 +1,5 @@
 if vim.g.vscode then
-    do return end
+  do return end
 end
 
 local cmp = require 'cmp'
@@ -47,10 +47,10 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'nvim_lsp_signature_help' },
+    { name = 'render-markdown' },
   },
 }
 cmp.event:on(
-    'confirm_done',
-    cmp_autopairs.on_confirm_done()
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
 )
-
