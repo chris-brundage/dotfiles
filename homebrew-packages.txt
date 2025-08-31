@@ -25,3 +25,9 @@ universal-ctags
 zsh-completions
 direnv
 font-jetbrains-mono-nerd-font
+tree-sitter
+wget
+sqlfluff
+python@3.12
+python@3.13
+nmap
