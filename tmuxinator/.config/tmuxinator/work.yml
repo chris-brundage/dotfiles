@@ -36,7 +36,7 @@ root: ~/
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-startup_window: astro
+startup_window: airflow
 
 # Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
 startup_pane: 1
@@ -45,19 +45,17 @@ startup_pane: 1
 # attach: false
 
 windows:
-  - astro:
+  - airflow-docker:
       layout: tiled
-      root: ~/src/bi-astronomer
+      root: ~/src/airflow-scripts
       panes:
-        - 'command -v pyenv &>/dev/null && pyenv activate astro'
-  - snowsql:
+        - '(netstat -n | grep -q 8085) || ./run.sh'
+  - airflow:
+      layout: tiled
+      root: ~/src/airflow-scripts
+      panes:
+        - 'command -v pyenv &>/dev/null && pyenv activate airflow'
+  - snowflake:
       layout: tiled
       panes:
-        - snowsql
-  - dbt:
-      layout: tiled
-      root: ~/src/bi-astronomer/dags/dbt
-      panes:
-        - 'command -v pyenv &>/dev/null && pyenv activate dbt'
-  - scratch:
-      layout: tiled
+        - 'snow sql'
