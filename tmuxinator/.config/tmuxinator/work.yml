@@ -49,7 +49,7 @@ windows:
       layout: tiled
       root: ~/src/airflow-scripts
       panes:
-        - '(netstat -n | grep -q 8085) || ./run.sh'
+        - '(curl --connect-timeout 2 -s -o /dev/null -w "%{http_code}" localhost:8085/health | grep -q 200) || ./run.sh'
   - airflow:
       layout: tiled
       root: ~/src/airflow-scripts
