@@ -11,6 +11,8 @@ fi
 # The next line enables shell command completion for gcloud.
 [[ -f "${HOME}/src/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/src/google-cloud-sdk/completion.zsh.inc"
 
+[[ -e /Applications/SnowSQL.app/Contents/MacOS/snowsql ]] && alias snowsql=/Applications/SnowSQL.app/Contents/MacOS/snowsql
+
 # Homebrew PHP 8.2
 [[ -d /opt/homebrew/opt/php@8.2 ]] && export PATH="${PATH}:/opt/homebrew/opt/php@8.2/bin:/opt/homebrew/opt/php@8.2/sbin"
 
