@@ -188,5 +188,7 @@ if [[ -d "${HOME}/.shell-includes" ]]; then
     done
 fi
 
+export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git --exclude .venv"
+
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"
