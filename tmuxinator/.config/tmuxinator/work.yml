@@ -58,4 +58,4 @@ windows:
   - snowflake:
       layout: tiled
       panes:
-        - 'snowsql'
+        - 'snowsql -c cmg'

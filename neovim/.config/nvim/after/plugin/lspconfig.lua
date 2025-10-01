@@ -67,7 +67,7 @@ null_ls.setup {
     null_ls.builtins.formatting.black,
     null_ls.builtins.diagnostics.pylint.with({
       diagnostics_format = "[#{c}] #{m} (#{s})",
-      debounce = 500,
+      debounce = 700,
       timeout = 10000
     }),
     null_ls.builtins.formatting.gofmt,
