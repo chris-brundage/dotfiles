@@ -61,15 +61,15 @@ local null_ls = require('null-ls')
 null_ls.setup {
   on_attach = on_attach,
   sources = {
-    null_ls.builtins.formatting.isort.with({
-      extra_args = { '--profile', 'black' },
-    }),
-    null_ls.builtins.formatting.black,
-    null_ls.builtins.diagnostics.pylint.with({
-      diagnostics_format = "[#{c}] #{m} (#{s})",
-      debounce = 700,
-      timeout = 10000
-    }),
+    -- null_ls.builtins.formatting.isort.with({
+    --   extra_args = { '--profile', 'black' },
+    -- }),
+    -- null_ls.builtins.formatting.black,
+    -- null_ls.builtins.diagnostics.pylint.with({
+    --   diagnostics_format = "[#{c}] #{m} (#{s})",
+    --   debounce = 700,
+    --   timeout = 10000
+    -- }),
     null_ls.builtins.formatting.gofmt,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.diagnostics.yamllint,
@@ -102,6 +102,7 @@ mason_lspconfig.setup {
     'tflint',
     'sqlls',
     'yamlls',
+    'ruff'
   }
 }
 
@@ -166,10 +167,23 @@ vim.lsp.config('pyright', {
     disableOrganizeImports = true,
     python = {
       analysis = {
-        autoImportCompletions = true,
+        -- autoImportCompletions = true,
+        ignore = { '*' }
       },
     },
   }
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*.py',
+  callback = function()
+    vim.lsp.buf.code_action({
+      context = { only = { "source.organizeImports" } },
+      apply = true
+    })
+
+    vim.lsp.buf.format({ async = false })
+  end
 })
 
 -- vim: ts=2 sts=2 sw=2 et
