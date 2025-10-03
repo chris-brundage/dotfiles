@@ -44,7 +44,7 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   nmap('<leader>ff', function()
-    vim.lsp.buf.format { async = true }
+    vim.lsp.buf.format { async = false }
   end, 'Format Code')
 
   -- Create a command `:Format` local to the LSP buffer
