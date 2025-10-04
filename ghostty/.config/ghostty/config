@@ -1,0 +1,11 @@
+background-opacity = 0.9
+background = #000000
+
+theme = Rose Pine Moon
+font-family = JetBrainsMono
+
+cursor-style = block
+shell-integration-features = no-cursor
+scrollback-limit = 10000
+
+quit-after-last-window-closed = true
