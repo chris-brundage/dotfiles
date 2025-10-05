@@ -2,7 +2,7 @@ background-opacity = 0.9
 background = #000000
 
 theme = Rose Pine Moon
-font-family = JetBrainsMono
+font-family = DroidSansM Nerd Font Mono
 
 cursor-style = block
 shell-integration-features = no-cursor
