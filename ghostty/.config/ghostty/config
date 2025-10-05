@@ -8,4 +8,8 @@ cursor-style = block
 shell-integration-features = no-cursor
 scrollback-limit = 10000
 
+macos-option-as-alt = left
 quit-after-last-window-closed = true
+
+keybind = alt+arrow_left=text:\x1b\x62
+keybind = alt+arrow_right=text:\x1b\x66
