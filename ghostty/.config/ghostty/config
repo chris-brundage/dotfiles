@@ -2,11 +2,21 @@ background-opacity = 0.9
 background = #000000
 
 theme = Rose Pine Moon
-font-family = DroidSansM Nerd Font Mono
+#font-family = DroidSansM Nerd Font Mono
+font-family = Hack Nerd Font Mono
+adjust-cell-width = -7%
+font-thicken = true
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+window-padding-x = 10
+window-padding-y = 10
 
 cursor-style = block
 shell-integration-features = no-cursor
 scrollback-limit = 10000
+
+shell-integration = zsh
 
 macos-option-as-alt = left
 quit-after-last-window-closed = true
