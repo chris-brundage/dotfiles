@@ -192,3 +192,6 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --e
 
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e "${HOME}/.global.env" ]] && load_env_file "${HOME}/.global.env"
+
+# Allow for adhoc aliases that are specific to environments and not worth enshrining in here
+[[ -e "${HOME}/.global.alias" ]] && source "${HOME}/.global.alias"
