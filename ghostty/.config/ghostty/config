@@ -4,6 +4,8 @@ background = #000000
 theme = Catppuccin Mocha
 
 font-family = Hack Nerd Font Mono
+font-size = 14
+
 font-thicken = true
 font-feature = -calt
 font-feature = -liga
