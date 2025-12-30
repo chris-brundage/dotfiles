@@ -68,3 +68,9 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.diagnostic.config({ virtual_text = true })
+
+-- Disable providers I don't need because they slow down startup on macOS
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
