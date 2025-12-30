@@ -156,29 +156,6 @@ load_env_file() {
     set +o allexport
 }
 
-#
-# Begin work specific stuff
-#
-cdastro() {
-    local astro_dir="${HOME}/src/bi-astronomer"
-    [[ -e "${astro_dir}/.python-version" ]] || activate_venv astro
-    cd "${astro_dir}"
-}
-
-cddbt() {
-    local dbt_dir="${HOME}/src/bi-astronomer/dags/dbt"
-    [[ -e "${dbt_dir}/.python-version" ]] || activate_venv dbt
-    cd "${dbt_dir}"
-}
-
-[[ -e "${HOME}/bin/google-cloud-sdk/bin" ]] && export PATH="${PATH}:${HOME}/bin/google-cloud-sdk/bin"
-
-# The next line updates PATH for the Google Cloud SDK.
-[[ -f "${HOME}/bin/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/path.zsh.inc"
-
-# The next line enables shell command completion for gcloud.
-[[ -f "${HOME}/bin/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/bin/google-cloud-sdk/completion.zsh.inc"
-
 # AWS CLI completion
 if command -v aws_completer &>/dev/null; then
     complete -C "$(command -v aws_completer)" aws
