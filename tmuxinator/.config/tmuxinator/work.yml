@@ -55,7 +55,3 @@ windows:
       root: ~/src/airflow-scripts
       panes:
         - 'command -v pyenv &>/dev/null && pyenv activate airflow'
-  - snowflake:
-      layout: tiled
-      panes:
-        - 'snowsql -c cmg'
