@@ -49,7 +49,7 @@ windows:
       layout: tiled
       root: ~/src/airflow-scripts
       panes:
-        - 'if ! curl --connect-timeout 2 -s -o /dev/null -w "%{http_code}" localhost:8085/health | grep -q 200; then ./run.sh; else echo "Docker containers are already running"; fi'
+        - 'if ! curl --connect-timeout 2 -s -o /dev/null -w "%{http_code}" localhost:8085/health | grep -q 200; then ./run.sh; else echo "Docker containers are already running"; fi; docker compose down'
   - airflow:
       layout: tiled
       root: ~/src/airflow-scripts
