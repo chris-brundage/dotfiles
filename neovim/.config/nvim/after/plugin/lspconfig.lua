@@ -75,6 +75,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 mason_lspconfig.setup {
   automatic_enable = true,
   ensure_installed = {
+    'basedpyright',
     'bashls',
     'clangd',
     'docker_compose_language_service',
@@ -84,7 +85,6 @@ mason_lspconfig.setup {
     'lua_ls',
     'jsonls',
     'phpactor',
-    'pyright',
     'terraformls',
     'tflint',
     'sqlls',
@@ -149,15 +149,18 @@ vim.lsp.config('lua_ls', {
   }
 })
 
-vim.lsp.config('pyright', {
+vim.lsp.config('basedpyright', {
   settings = {
-    disableOrganizeImports = true,
-    python = {
+    basedpyright = {
+      disableOrganizeImports = true,
       analysis = {
+        typeCheckingMode = "basic",
+        reportMissingTypeStubs = false,
         ignore = { '*' },
         diagnosticSeverityOverrides = {
-          reportUnusedImport = "none",
-          reportUnusedVariable = "none"
+          reportUnusedImport = false,
+          reportUnusedVariable = false,
+          -- reportMissingTypeStubs = false,
         }
       },
     },
