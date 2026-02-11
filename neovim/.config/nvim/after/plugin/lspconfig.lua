@@ -75,7 +75,6 @@ local mason_lspconfig = require 'mason-lspconfig'
 mason_lspconfig.setup {
   automatic_enable = true,
   ensure_installed = {
-    'basedpyright',
     'bashls',
     'clangd',
     'docker_compose_language_service',
@@ -101,6 +100,8 @@ require('mason-tool-installer').setup {
     'yamllint'
   }
 }
+
+vim.lsp.enable('basedpyright')
 
 --
 -- Global LSP configs along with non-default settings for specific LSPs
