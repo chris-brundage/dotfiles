@@ -88,7 +88,7 @@ mason_lspconfig.setup {
     'tflint',
     'sqlls',
     'yamlls',
-    'ruff'
+    'ruff',
   }
 }
 
@@ -97,7 +97,9 @@ require('mason-tool-installer').setup {
     'goimports',
     'jq',
     'tflint',
-    'yamllint'
+    'yamllint',
+    'sqlfluff',
+    'debugpy'
   }
 }
 
