@@ -11,6 +11,7 @@ require 'nvim-treesitter.configs'.setup {
     'csv',
     'dockerfile',
     'go',
+    'jinja',
     'jq',
     'json',
     'jsonc',
