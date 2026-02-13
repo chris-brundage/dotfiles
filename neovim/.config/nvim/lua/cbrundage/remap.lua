@@ -70,7 +70,7 @@ vim.keymap.set('n', '<leader>dbs', function()
   })
   if #dbt_root > 0 then
     local root = vim.fn.fnamemodify(dbt_root[1], ":h")
-    local compiled = root .. "/target/compiled/cmg/models/**/" .. model .. ".sql"
+    local compiled = root .. "/target/compiled/cmg_data/models/**/" .. model .. ".sql"
     local files = vim.fn.glob(compiled, false, true)
     if #files > 0 then
       vim.cmd("vsplit " .. files[1])
@@ -85,7 +85,7 @@ vim.keymap.set('n', '<leader>dgd', function()
   local line = vim.fn.getline(".")
   local col = vim.fn.col(".")
   local ref_match = line:match("ref%('([%w_]+)'%)")
-  local source_match = line:match("source%('[%w_]+','([%w_]+)'%)")
+  local source_match = line:match("source%('[%w_]+',%W?'([%w_]+)'%)")
   local model = ref_match or source_match
   if model then
     -- Search for the file in the project
