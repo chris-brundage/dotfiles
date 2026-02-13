@@ -37,29 +37,33 @@ vim.keymap.set({ 'n' }, '<leader>Bd', '<cmd>bdelete<cr>')
 
 vim.keymap.set('n', '<leader>ex', function() require('oil').open() end)
 
+local function split_term(cmd)
+  vim.cmd("FloatermNew --position=below " .. cmd)
+end
+
 vim.keymap.set('n', '<leader>drf', function()
   local model = vim.fn.expand("%:t:r")
-  vim.cmd("split | terminal dbt run -s " .. model)
+  split_term("dbt run -s " .. model)
 end, { desc = "dbt run (current model)" })
 
 vim.keymap.set('n', '<leader>dbd', function()
   local model = vim.fn.expand("%:t:r")
-  vim.cmd("split | terminal dbt build -s " .. model .. "+")
+  split_term("dbt build -s " .. model .. "+")
 end, { desc = 'dbt build (current + downstream)' })
 
 vim.keymap.set('n', '<leader>dbu', function()
   local model = vim.fn.expand("%:t:r")
-  vim.cmd("split | terminal dbt build -s " .. "+" .. model)
+  split_term("dbt build -s " .. "+" .. model)
 end, { desc = 'dbt build (current + upstream)' })
 
 vim.keymap.set('n', '<leader>dbf', function()
   local model = vim.fn.expand("%:t:r")
-  vim.cmd("split | terminal dbt build -s " .. model)
+  split_term("dbt build -s " .. model)
 end, { desc = 'dbt build (current model)' })
 
 vim.keymap.set('n', '<leader>dbc', function()
   local model = vim.fn.expand("%:t:r")
-  vim.cmd("split | terminal dbt compile -s " .. model)
+  split_term("dbt compile -s " .. model)
 end, { desc = 'dbt compile (current model)' })
 
 vim.keymap.set('n', '<leader>dbs', function()
@@ -108,5 +112,5 @@ vim.keymap.set('n', '<leader>dgd', function()
 end, { desc = 'Go to ref/source model' })
 
 vim.keymap.set('n', '<leader>dba', function()
-  vim.cmd("split | terminal dbt build")
+  split_term("dbt build")
 end, { desc = 'dbt run (all)' })
