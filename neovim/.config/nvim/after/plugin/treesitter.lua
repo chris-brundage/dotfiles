@@ -2,7 +2,7 @@ if vim.g.vscode then
   do return end
 end
 
-require 'nvim-treesitter.config'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = {
     'bash',
@@ -112,3 +112,17 @@ require 'nvim-treesitter.config'.setup {
     },
   },
 }
+
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "@lsp.type.variable", { link = "@variable" })
+    vim.api.nvim_set_hl(0, "@lsp.type.variable.readonly", { link = "@constant" })
+    vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@property" })
+  end,
+})
+
+-- also call it immediately for the current colorscheme
+vim.api.nvim_set_hl(0, "@lsp.type.variable", { link = "@variable" })
+vim.api.nvim_set_hl(0, "@lsp.type.variable.readonly", { link = "@constant" })
+vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@property" })

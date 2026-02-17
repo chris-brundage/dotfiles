@@ -13,4 +13,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- vim.cmd [[colorscheme tokyonight-night]]
 -- vim.cmd [[colorscheme rose-pine-moon]]
+-- require('catppuccin').setup({
+--   integrations = {
+--     auto_integrations = true,
+--   }
+-- })
 vim.cmd [[colorscheme catppuccin ]]
