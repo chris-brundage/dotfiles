@@ -40,12 +40,14 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   nmap('<leader>ff', function()
-    vim.lsp.buf.format { async = false }
+    -- vim.lsp.buf.format { async = false, timeout_ms = 60000 }
+    require('conform').format({ lsp_fallback = true, timeout_ms = 60000, async = false })
   end, 'Format Code')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
+    -- vim.lsp.buf.format({ async = false, timeout_ms = 60000 })
+    require('conform').format({ lsp_fallback = true, timeout_ms = 60000, async = false })
   end, { desc = 'Format current buffer with LSP' })
 end
 
