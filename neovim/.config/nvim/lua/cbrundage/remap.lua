@@ -41,6 +41,36 @@ local function split_term(cmd)
   vim.cmd("FloatermNew --position=below " .. cmd)
 end
 
+local function get_dbt_root()
+  local dbt_root = vim.fs.find("dbt_project.yml", {
+    upward = true,
+    path = vim.fn.expand("%:p:h"),
+  })
+  if #dbt_root > 0 then
+    dbt_root = vim.fn.fnamemodify(dbt_root[1], ":h")
+  else
+    dbt_root = vim.fn.getcwd()
+  end
+
+  return dbt_root
+end
+
+local function dbt_cmd(operation, model, extra_args)
+  local dbt_root = get_dbt_root()
+
+  local cmd = "dbt " .. operation
+  if model then
+    cmd = cmd .. " -s " .. model
+  end
+
+  cmd = cmd .. " --project-dir " .. dbt_root .. " --profiles-dir " .. dbt_root
+  if extra_args then
+    cmd = cmd .. " " .. extra_args
+  end
+
+  return cmd
+end
+
 vim.keymap.set('n', '<leader>drf', function()
   local model = vim.fn.expand("%:t:r")
   split_term("dbt run -s " .. model)
@@ -48,22 +78,22 @@ end, { desc = "dbt run (current model)" })
 
 vim.keymap.set('n', '<leader>dbd', function()
   local model = vim.fn.expand("%:t:r")
-  split_term("dbt build -s " .. model .. "+")
+  split_term(dbt_cmd("build", model .. "+"))
 end, { desc = 'dbt build (current + downstream)' })
 
 vim.keymap.set('n', '<leader>dbu', function()
   local model = vim.fn.expand("%:t:r")
-  split_term("dbt build -s " .. "+" .. model)
+  split_term(dbt_cmd("build", "+" .. model))
 end, { desc = 'dbt build (current + upstream)' })
 
 vim.keymap.set('n', '<leader>dbf', function()
   local model = vim.fn.expand("%:t:r")
-  split_term("dbt build -s " .. model)
+  split_term(dbt_cmd("build", model))
 end, { desc = 'dbt build (current model)' })
 
 vim.keymap.set('n', '<leader>dbc', function()
   local model = vim.fn.expand("%:t:r")
-  split_term("dbt compile -s " .. model)
+  split_term(dbt_cmd("compile", model))
 end, { desc = 'dbt compile (current model)' })
 
 vim.keymap.set('n', '<leader>dbs', function()
@@ -112,7 +142,7 @@ vim.keymap.set('n', '<leader>dgd', function()
 end, { desc = 'Go to ref/source model' })
 
 vim.keymap.set('n', '<leader>dba', function()
-  split_term("dbt build")
+  split_term(dbt_cmd("build"))
 end, { desc = 'dbt run (all)' })
 
 local function sanitize_dbt_output(val)
