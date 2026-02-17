@@ -114,3 +114,90 @@ end, { desc = 'Go to ref/source model' })
 vim.keymap.set('n', '<leader>dba', function()
   split_term("dbt build")
 end, { desc = 'dbt run (all)' })
+
+vim.keymap.set('n', '<leader>dbs', function()
+  local model = vim.fn.expand("%:t:r")
+  local progress = require("fidget.progress")
+  local handle = progress.handle.create({
+    title = "dbt show",
+    message = model,
+    lsp_client = { name = "dbt" },
+  })
+
+  if vim.v.shell_error ~= 0 then
+    vim.notify("dbt show failed: " .. result, vim.log.levels.ERROR)
+    return
+  end
+
+  vim.system(
+    { "sh", "-c", [[dbt show -s ]] ..
+    model .. [[ -q --output json --limit 500 | jq -c '{keys: (.show[0] | keys_unsorted), rows: .show}']] },
+    { text = true },
+    function(obj)
+      vim.schedule(function()
+        if obj.code ~= 0 then
+          handle:cancel()
+          vim.notify("dbt show failed: " .. (obj.stderr or ""), vim.log.levels.ERROR)
+          return
+        end
+
+        handle:finish()
+
+        local data = vim.json.decode(obj.stdout)
+        local rows_data = data.rows
+        local column_names = data.keys
+
+        -- calculate max width for each column
+        local widths = {}
+        for _, k in ipairs(column_names) do
+          widths[k] = #k
+        end
+        for _, row in ipairs(rows_data) do
+          for _, k in ipairs(column_names) do
+            local val = row[k]
+            local str = (val == vim.NIL or val == nil) and "NULL" or tostring(val)
+            widths[k] = math.max(widths[k], #str)
+          end
+        end
+
+        -- build header
+        local header_parts = {}
+        for _, k in ipairs(column_names) do
+          table.insert(header_parts, k .. string.rep(" ", widths[k] - #k))
+        end
+        local header = "│ " .. table.concat(header_parts, " │ ") .. " │"
+
+        -- build separator line
+        local sep_parts = {}
+        for _, k in ipairs(column_names) do
+          table.insert(sep_parts, string.rep("─", widths[k]))
+        end
+        local separator = "├─" .. table.concat(sep_parts, "─┼─") .. "─┤"
+        local top_border = "┌─" .. table.concat(sep_parts, "─┬─") .. "─┐"
+        local bottom_border = "└─" .. table.concat(sep_parts, "─┴─") .. "─┘"
+
+        -- build rows
+        local rows = { top_border, header, separator }
+        for _, row in ipairs(rows_data) do
+          local parts = {}
+          for _, k in ipairs(column_names) do
+            local val = row[k]
+            local str = (val == vim.NIL or val == nil) and "NULL" or tostring(val)
+            table.insert(parts, str .. string.rep(" ", widths[k] - #str))
+          end
+          table.insert(rows, "│ " .. table.concat(parts, " │ ") .. " │")
+        end
+        table.insert(rows, bottom_border)
+
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, rows)
+        vim.api.nvim_set_option_value("buftype", "nofile", { buf = buf })
+        vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+
+        vim.cmd("below split")
+        vim.api.nvim_set_current_buf(buf)
+        vim.api.nvim_set_option_value("wrap", false, { win = 0 })
+      end)
+    end
+  )
+end)
