@@ -115,8 +115,27 @@ vim.keymap.set('n', '<leader>dba', function()
   split_term("dbt build")
 end, { desc = 'dbt run (all)' })
 
+local function sanitize_dbt_output(val)
+  if val == vim.NIL or val == nil then
+    return "NULL"
+  end
+
+  local str = tostring(val)
+  str = str:gsub("\n", "\\n")
+  str = str:gsub("\r", "\\r")
+  return str
+end
+
 vim.keymap.set('n', '<leader>dbs', function()
   local model = vim.fn.expand("%:t:r")
+  local dbt_root = vim.fs.find("dbt_project.yml", {
+    upward = true,
+    path = vim.fn.expand("%:p:h"),
+  })
+  if #dbt_root > 0 then
+    dbt_root = vim.fn.fnamemodify(dbt_root[1], ":h")
+  end
+
   local progress = require("fidget.progress")
   local handle = progress.handle.create({
     title = "dbt show",
@@ -124,14 +143,20 @@ vim.keymap.set('n', '<leader>dbs', function()
     lsp_client = { name = "dbt" },
   })
 
-  if vim.v.shell_error ~= 0 then
-    vim.notify("dbt show failed: " .. result, vim.log.levels.ERROR)
-    return
-  end
+  local dbt_cmd = table.concat({
+    "dbt show",
+    "-s", model,
+    "--project-dir", dbt_root,
+    "--profiles-dir", dbt_root,
+    "-q",
+    "--output json",
+    "--limit 500",
+  }, " ")
+
+  local jq_cmd = "jq -c '{keys: (.show[0] | keys_unsorted), rows: .show}'"
 
   vim.system(
-    { "sh", "-c", [[dbt show -s ]] ..
-    model .. [[ -q --output json --limit 500 | jq -c '{keys: (.show[0] | keys_unsorted), rows: .show}']] },
+    { "sh", "-c", dbt_cmd .. "|" .. jq_cmd },
     { text = true },
     function(obj)
       vim.schedule(function()
@@ -154,8 +179,7 @@ vim.keymap.set('n', '<leader>dbs', function()
         end
         for _, row in ipairs(rows_data) do
           for _, k in ipairs(column_names) do
-            local val = row[k]
-            local str = (val == vim.NIL or val == nil) and "NULL" or tostring(val)
+            local str = sanitize_dbt_output(row[k])
             widths[k] = math.max(widths[k], #str)
           end
         end
@@ -181,8 +205,7 @@ vim.keymap.set('n', '<leader>dbs', function()
         for _, row in ipairs(rows_data) do
           local parts = {}
           for _, k in ipairs(column_names) do
-            local val = row[k]
-            local str = (val == vim.NIL or val == nil) and "NULL" or tostring(val)
+            local str = sanitize_dbt_output(row[k])
             table.insert(parts, str .. string.rep(" ", widths[k] - #str))
           end
           table.insert(rows, "│ " .. table.concat(parts, " │ ") .. " │")
