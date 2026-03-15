@@ -69,9 +69,13 @@ ZSH_CUSTOM="${HOME}/.oh-my-zsh-custom"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
+# Plugins for all operating systems
+global_plugins=(git direnv safe-paste terraform)
+
+# OS specific zsh plugins
 case "${SYSTEM_OS}" in
 darwin)
-    plugins=(git direnv safe-paste iterm2)
+    plugins=(iterm2)
     # Home brew autocompletion stuff needs to happen before we source oh my zsh
     if command -v brew &>/dev/null; then
         FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -82,10 +86,12 @@ darwin)
     fi
     ;;
 linux)
-    plugins=(git direnv safe-paste)
+    plugins=()
     ;;
 *) ;;
 esac
+
+plugins=("${global_plugins[@]}" "${plugins[@]}")
 
 source $ZSH/oh-my-zsh.sh
 
