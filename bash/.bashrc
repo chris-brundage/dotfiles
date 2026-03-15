@@ -54,3 +54,7 @@ fi
 
 # Load secret envrionment variables so I don't foolishly put them in a public git repo!
 [[ -e ~/.global.env ]] && source ~/.global.env
+
+if command -v terraform >/dev/null 2>&1; then
+    complete -C /usr/bin/terraform terraform
+fi

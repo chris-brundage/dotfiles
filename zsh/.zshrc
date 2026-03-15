@@ -70,7 +70,7 @@ ZSH_CUSTOM="${HOME}/.oh-my-zsh-custom"
 # Add wisely, as too many plugins slow down shell startup.
 
 # Plugins for all operating systems
-global_plugins=(git direnv safe-paste terraform)
+global_plugins=(git direnv safe-paste)
 
 # OS specific zsh plugins
 case "${SYSTEM_OS}" in
@@ -184,3 +184,9 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --e
 [[ -e "${HOME}/.global.alias" ]] && source "${HOME}/.global.alias"
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+autoload -U +X bashcompinit && bashcompinit
+
+if command -v terraform &>/dev/null; then 
+    complete -o nospace -C /usr/bin/terraform terraform
+fi
