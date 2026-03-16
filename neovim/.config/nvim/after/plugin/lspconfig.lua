@@ -182,6 +182,13 @@ vim.lsp.config('ruff', {
   }
 })
 
+vim.lsp.config('terraformls', {
+  filetypes = { 'terraform', 'hcl' },
+  experimentalFeatures = {
+    prefillRequiredFields = true
+  }
+})
+
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.py',
   callback = function()
