@@ -196,3 +196,9 @@ if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-
 
 # The next line enables shell command completion for gcloud.
 if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+
+if [[ -e "$(command -v docker 2>/dev/null)" && -d "${HOME}/.docker/completions" ]]; then
+    FPATH="$HOME/.docker/completions:$FPATH"
+    autoload -Uz compinit
+    compinit
+fi
