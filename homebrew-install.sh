@@ -6,6 +6,18 @@ fi
 
 MACOS_ARCH=$(uname -m)
 
+if ! command -v brew >/dev/null 2>&1; then
+    install_homebrew
+
+    if [[ "${MACOS_ARCH}" == "x86_64" ]]; then
+        BREW_PATH="/usr/local/bin"
+    else
+        BREW_PATH="/opt/homebrew/bin"
+    fi
+else
+    BREW_PATH="$(brew --prefix)/bin"
+fi
+
 # Figure out what login shell (and therefore profile file) the user is using
 if [[ "${SHELL}" == "/bin/zsh" ]]; then
     PROFILE_FILE="${HOME}/.zprofile"
@@ -21,25 +33,14 @@ install_packages() {
 }
 
 install_casks() {
-    if [[ -e "homebrew-casks.txt" && $(wc -l <"homebrew-casks.txt") -gt 0 ]]; then 
+    if [[ -e "homebrew-casks.txt" && $(wc -l <"homebrew-casks.txt") -gt 0 ]]; then
         xargs brew tap <"homebrew-casks.txt"
     fi
 }
 
 setup_homebrew() {
-    if ! command -v brew >/dev/null 2>&1; then
-        install_homebrew
 
-        if [[ "${MACOS_ARCH}" == "x86_64" ]]; then
-            brew_path="/usr/local/bin"
-        else
-            brew_path="/opt/homebrew/bin"
-        fi
-    else
-        brew_path="$(brew --prefix)/bin"
-    fi
-
-    if ! env | grep -q "${brew_path}"; then
+    if ! env | grep -q "${BREW_PATH}"; then
         # shellcheck disable=SC1090
         source "${PROFILE_FILE}"
     fi
@@ -50,6 +51,9 @@ install_homebrew() {
         printf "Install Homebrew\n"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
+
+    # Ensure Homebrew is in our path for subsequent steps
+    eval "$(${BREW_PATH} shellenv zsh)"
 }
 
 # Install macOS developer tools if necessary
