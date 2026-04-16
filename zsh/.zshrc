@@ -202,3 +202,32 @@ if [[ -e "$(command -v docker 2>/dev/null)" && -d "${HOME}/.docker/completions" 
     autoload -Uz compinit
     compinit
 fi
+
+gssh ()
+{
+    if ! command -v gcloud &>/dev/null; then
+        printf "gcloud command is not installed!\n"
+        return 1
+    fi
+
+    local instance_name="${1}"
+    local project_id="${2:-}"
+
+    local cmd=(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)")
+    cmd+=(--filter="name=( '${instance_name}' )")
+    if [[ -n "${project_id}" ]]; then
+        cmd+=(--project="${project_id}")
+    fi
+
+    local instance_ip
+    instance_ip=$("${cmd[@]}") || return 1
+
+    if [[ "${instance_ip}" == "" ]]; then
+        printf "Could not get IP address for instance %s\n" "${instance_name}"
+        return 1
+    fi
+
+    printf "Connecting to %s with IP address %s\n" "${instance_name}" "${instance_ip}" 
+
+    ssh "${instance_ip}"
+}
