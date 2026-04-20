@@ -89,6 +89,7 @@ mason_lspconfig.setup {
     'sqlls',
     'yamlls',
     'ruff',
+    'ansiblels'
   }
 }
 
@@ -99,7 +100,8 @@ require('mason-tool-installer').setup {
     'tflint',
     'yamllint',
     'sqlfluff',
-    'debugpy'
+    'debugpy',
+    'ansible-lint'
   }
 }
 

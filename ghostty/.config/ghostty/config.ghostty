@@ -15,7 +15,7 @@ adjust-cell-width = -7%
 
 cursor-style = block
 shell-integration-features = no-cursor
-scrollback-limit = 150000
+scrollback-limit = 15000000
 window-width=120
 window-height=30
 

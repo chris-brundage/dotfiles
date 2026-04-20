@@ -203,6 +203,8 @@ if [[ -e "$(command -v docker 2>/dev/null)" && -d "${HOME}/.docker/completions" 
     compinit
 fi
 
+alias gcls='gcloud compute instances list'
+
 gssh ()
 {
     if ! command -v gcloud &>/dev/null; then
