@@ -4,7 +4,6 @@ background = #000000
 theme = Catppuccin Mocha
 
 font-family = Hack Nerd Font Mono
-font-size = 20
 
 font-thicken = true
 font-feature = -calt
@@ -26,3 +25,5 @@ quit-after-last-window-closed = true
 
 keybind = alt+arrow_left=text:\x1b\x62
 keybind = alt+arrow_right=text:\x1b\x66
+
+config-file = ?config.work
