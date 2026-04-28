@@ -27,7 +27,7 @@ CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
-zstyle ':omz:update' mode disabled  # disable automatic updates
+zstyle ':omz:update' mode disabled # disable automatic updates
 # zstyle ':omz:update' mode auto # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
@@ -183,11 +183,13 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --e
 # Allow for adhoc aliases that are specific to environments and not worth enshrining in here
 [[ -e "${HOME}/.global.alias" ]] && source "${HOME}/.global.alias"
 
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
+fpath+=~/.zfunc
+autoload -Uz compinit
+compinit
 
 autoload -U +X bashcompinit && bashcompinit
 
-if command -v terraform &>/dev/null; then 
+if command -v terraform &>/dev/null; then
     complete -o nospace -C /usr/bin/terraform terraform
 fi
 
@@ -205,8 +207,7 @@ fi
 
 alias gcls='gcloud compute instances list'
 
-gssh ()
-{
+gssh() {
     if ! command -v gcloud &>/dev/null; then
         printf "gcloud command is not installed!\n"
         return 1
@@ -229,7 +230,13 @@ gssh ()
         return 1
     fi
 
-    printf "Connecting to %s with IP address %s\n" "${instance_name}" "${instance_ip}" 
+    printf "Connecting to %s with IP address %s\n" "${instance_name}" "${instance_ip}"
 
     ssh "${instance_ip}"
+}
+
+kill_ansible() {
+    for container_id in $(docker ps | awk '/mf-ansible-sre/ {print $1}'); do
+        docker stop "${container_id}"
+    done
 }

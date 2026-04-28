@@ -18,6 +18,10 @@ scrollback-limit = 15000000
 window-width=120
 window-height=30
 
+split-inherit-working-directory = true
+tab-inherit-working-directory = false
+window-inherit-working-directory = false
+
 shell-integration = zsh
 
 macos-option-as-alt = left

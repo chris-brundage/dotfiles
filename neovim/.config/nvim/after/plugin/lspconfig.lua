@@ -60,7 +60,9 @@ null_ls.setup {
     null_ls.builtins.formatting.gofmt,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.diagnostics.yamllint,
-    null_ls.builtins.formatting.yamlfmt,
+    null_ls.builtins.formatting.yamlfmt.with({
+      extra_args = { '--formatter', 'include_document_start=true,retain_line_breaks=true' }
+    }),
   },
   capabilities = capabilities,
 }
@@ -189,6 +191,10 @@ vim.lsp.config('terraformls', {
   experimentalFeatures = {
     prefillRequiredFields = true
   }
+})
+
+vim.lsp.config('yamlls', {
+  filetypes = { 'yaml' }
 })
 
 vim.api.nvim_create_autocmd('BufWritePre', {
