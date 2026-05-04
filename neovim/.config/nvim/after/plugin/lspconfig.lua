@@ -193,10 +193,6 @@ vim.lsp.config('terraformls', {
   }
 })
 
-vim.lsp.config('yamlls', {
-  filetypes = { 'yaml' }
-})
-
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.py',
   callback = function()
