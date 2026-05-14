@@ -10,14 +10,6 @@ vim.keymap.set('n', '<C-n><C-n>', function()
   vim.api.nvim_set_option_value('relativenumber', not option_value, {})
 end)
 
--- Search for files using fzf
-vim.keymap.set('n', '<leader>b', '<cmd>Files<cr>', {})
-
--- Grep!
-vim.keymap.set('n', '<leader>ss', '<cmd>Rg<cr>', {})
-vim.keymap.set('n', '<leader>SS', '<cmd>RG<cr>', {})
-vim.keymap.set('n', '<leader>gf', '<cmd>GFiles<cr>', { desc = 'Search [G]it [F]iles' })
-
 -- Thanks Primeagen
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
