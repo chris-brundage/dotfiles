@@ -33,4 +33,6 @@ keybind = alt+arrow_right=text:\x1b\x66
 keybind = super+arrow_left=previous_tab
 keybind = super+arrow_right=next_tab
 
+cursor-click-to-move = false
+
 config-file = ?config.work

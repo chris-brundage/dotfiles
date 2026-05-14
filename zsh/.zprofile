@@ -43,13 +43,20 @@ esac
 #
 # We need this global because pyenv on macOS fucks up without doing homebrew stuff
 [[ "${SYSTEM_OS}" == "darwin" ]] && setup_homebrew
-setup_pyenv
 
 [[ -d "${HOME}/bin" ]] && export PATH="${HOME}/bin:${PATH}"
 [[ -d "${HOME}/scripts" ]] && export PATH="${HOME}/scripts:${PATH}"
 
 # Rust
 [[ -d "${HOME}/.cargo/bin" ]] && export PATH="${HOME}/.cargo/bin:${PATH}"
+
+# Poetry
+[[ -d "${HOME}/.local/bin" ]] && export PATH="${HOME}/.local/bin:${PATH}"
+
+# Attempt to use pyenv if we don't have poetry installed
+if ! command -v poetry &>/dev/null; then
+    setup_pyenv
+fi
 
 # Python 3 support for gcloud
 export CLOUDSDK_PYTHON=python3
