@@ -1,3 +1,4 @@
+test -e "/Library/Application Support/Sinch/profile.zsh" && source "/Library/Application Support/Sinch/profile.zsh"
 SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 # Path to your oh-my-zsh installation.

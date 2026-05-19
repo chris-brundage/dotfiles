@@ -1,3 +1,4 @@
+test -e "/Library/Application Support/Sinch/profile.zsh" && source "/Library/Application Support/Sinch/profile.zsh"
 # shellcheck shell=bash
 SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
