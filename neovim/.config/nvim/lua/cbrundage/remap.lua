@@ -29,6 +29,24 @@ vim.keymap.set({ 'n' }, '<leader>Bd', '<cmd>bdelete<cr>')
 
 vim.keymap.set('n', '<leader>ex', function() require('oil').open() end)
 
+vim.keymap.set('n', '<C-p><C-p>', ":lua require'telescope'.extensions.project.project{}<CR>",
+  { noremap = true, silent = true })
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>e', function()
+  local existing = vim.b.diagnostic_float_win
+  if existing and vim.api.nvim_win_is_valid(existing) then
+    vim.api.nvim_win_close(existing, false)
+    vim.b.diagnostic_float_win = nil
+  else
+    local _, win = vim.diagnostic.open_float()
+    vim.b.diagnostic_float_win = win
+  end
+end, { desc = 'Toggle floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 local function split_term(cmd)
   vim.cmd("FloatermNew --position=below " .. cmd)
 end

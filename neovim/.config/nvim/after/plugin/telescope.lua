@@ -10,12 +10,19 @@ require('telescope').setup {
     },
     path_display = { "truncate" }
   },
+  extensions = {
+    file_browser = {
+      theme = 'ivy',
+      hijack_netrw = true
+    }
+  }
 }
 
 -- Extensions
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'aerial')
 pcall(require('telescope').load_extension, 'project')
+pcall(require('telescope').load_extension, 'file_browser')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
