@@ -241,3 +241,6 @@ kill_ansible() {
         docker stop "${container_id}"
     done
 }
+
+# Some work stuff is best kept outside a public git repo
+[[ -e "${HOME}/.zshrc-work" ]] && source "${HOME}/.zshrc-work"
