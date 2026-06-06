@@ -1,5 +1,7 @@
 vim.keymap.set({ 'n', 't' }, '<leader>tt', '<cmd>FloatermToggle<cr>')
 
+vim.g.floaterm_height = 0.95
+vim.g.floaterm_width = 0.95
 
 -- Termsize sets 140x50
 -- Termsize 140 sets width to 140

@@ -105,7 +105,8 @@ require('mason-tool-installer').setup {
     'sqlfluff',
     'debugpy',
     'ansible-lint',
-    'nomad'
+    'nomad',
+    'luacheck'
   }
 }
 
