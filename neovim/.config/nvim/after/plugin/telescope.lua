@@ -15,6 +15,11 @@ require('telescope').setup {
       theme = 'ivy',
       hijack_netrw = true
     }
+  },
+  pickers = {
+    find_files = {
+      find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" }
+    }
   }
 }
 
