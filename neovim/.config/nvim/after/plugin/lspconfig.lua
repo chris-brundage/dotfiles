@@ -92,7 +92,8 @@ mason_lspconfig.setup {
     'yamlls',
     'ruff',
     'ansiblels',
-    'jinja_lsp'
+    'jinja_lsp',
+    'pyright'
   }
 }
 
@@ -109,8 +110,6 @@ require('mason-tool-installer').setup {
     'luacheck'
   }
 }
-
-vim.lsp.enable('basedpyright')
 
 --
 -- Global LSP configs along with non-default settings for specific LSPs
@@ -159,9 +158,9 @@ vim.lsp.config('lua_ls', {
   }
 })
 
-vim.lsp.config('basedpyright', {
+vim.lsp.config('pyright', {
   settings = {
-    basedpyright = {
+    pyright = {
       disableOrganizeImports = true,
       analysis = {
         typeCheckingMode = "basic",
