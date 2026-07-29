@@ -197,7 +197,7 @@ compinit
 autoload -U +X bashcompinit && bashcompinit
 
 if command -v terraform &>/dev/null; then
-    complete -o nospace -C /usr/bin/terraform terraform
+    complete -o nospace -C "$(which terraform)" terraform
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -211,42 +211,6 @@ if [[ -e "$(command -v docker 2>/dev/null)" && -d "${HOME}/.docker/completions" 
     autoload -Uz compinit
     compinit
 fi
-
-alias gcls='gcloud compute instances list'
-
-gssh() {
-    if ! command -v gcloud &>/dev/null; then
-        printf "gcloud command is not installed!\n"
-        return 1
-    fi
-
-    local instance_name="${1}"
-    local project_id="${2:-}"
-
-    local cmd=(gcloud compute instances list --format="value(networkInterfaces[0].networkIP)")
-    cmd+=(--filter="name=( '${instance_name}' )")
-    if [[ -n "${project_id}" ]]; then
-        cmd+=(--project="${project_id}")
-    fi
-
-    local instance_ip
-    instance_ip=$("${cmd[@]}") || return 1
-
-    if [[ "${instance_ip}" == "" ]]; then
-        printf "Could not get IP address for instance %s\n" "${instance_name}"
-        return 1
-    fi
-
-    printf "Connecting to %s with IP address %s\n" "${instance_name}" "${instance_ip}"
-
-    ssh "${instance_ip}"
-}
-
-kill_ansible() {
-    for container_id in $(docker ps | awk '/mf-ansible-sre/ {print $1}'); do
-        docker stop "${container_id}"
-    done
-}
 
 # Some work stuff is best kept outside a public git repo
 [[ -e "${HOME}/.zshrc-work" ]] && source "${HOME}/.zshrc-work"

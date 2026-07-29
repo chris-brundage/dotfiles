@@ -17,12 +17,15 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
+  local builtin = require('telescope.builtin')
+
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('god', builtin.diagnostics, '[G][O]to [D]iagnostics')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
@@ -66,6 +69,8 @@ null_ls.setup {
   },
   capabilities = capabilities,
 }
+
+local python_utils = require('cbrundage.util.python')
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -160,6 +165,9 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.config('pyright', {
   settings = {
+    python = {
+      pythonPath = python_utils.get_poetry_path()
+    },
     pyright = {
       disableOrganizeImports = true,
       analysis = {
@@ -218,4 +226,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
   desc = 'LSP: Disable hover capability from Ruff',
+})
+
+-- Fun with ansible-ls since we use poetry at work
+vim.lsp.config('ansiblels', {
+  settings = {
+    ansible = {
+      python = {
+        interpreterPath = python_utils.get_poetry_path(),
+      },
+      ansible = {
+        path = 'poetry run ansible',
+      },
+      validation = {
+        enabled = true,
+        lint = {
+          enabled = true,
+          path = 'poetry run ansible-lint',
+        },
+      },
+    },
+  },
 })
