@@ -1,12 +1,14 @@
 local M = {}
 
 -- Handle poetry path shenanigans where needed
-function M.get_poetry_path()
+function M.get_poetry_path(dir)
   if vim.fn.executable('poetry') == 0 then
     return "python"
   end
 
-  local handle = io.popen('poetry env info --path 2>/dev/null')
+  local cmd = 'poetry env info ' .. '-C ' .. vim.fn.shellescape(dir) .. ' --path 2>/dev/null'
+
+  local handle = io.popen(cmd)
   if handle then
     local path = handle:read("*a")
     handle:close()

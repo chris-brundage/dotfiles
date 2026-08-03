@@ -164,10 +164,11 @@ vim.lsp.config('lua_ls', {
 })
 
 vim.lsp.config('pyright', {
+  before_init = function(_, config)
+    vim.notify(vim.inspect(config.root_dir))
+    config.settings.python.pythonPath = python_utils.get_poetry_path(config.root_dir)
+  end,
   settings = {
-    python = {
-      pythonPath = python_utils.get_poetry_path()
-    },
     pyright = {
       disableOrganizeImports = true,
       analysis = {
@@ -230,6 +231,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- Fun with ansible-ls since we use poetry at work
 vim.lsp.config('ansiblels', {
+  before_init = function(_, config)
+    config.settings.ansible.python.interpreterPath = python_utils.get_poetry_path(config.root_dir)
+  end,
   settings = {
     ansible = {
       python = {
