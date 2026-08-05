@@ -240,13 +240,13 @@ vim.lsp.config('ansiblels', {
         interpreterPath = python_utils.get_poetry_path(),
       },
       ansible = {
-        path = 'poetry run ansible',
+        path = 'ansible',
       },
       validation = {
         enabled = true,
         lint = {
           enabled = true,
-          path = 'poetry run ansible-lint',
+          path = 'ansible-lint',
         },
       },
     },
