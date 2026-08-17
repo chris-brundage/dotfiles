@@ -6,37 +6,37 @@ SYSTEM_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
 # We need this global because pyenv on macOS fucks up without doing homebrew stuff
 # Figure out where homebrew lives (if installed) and get PATH and such updated
 setup_homebrew() {
-    # Are we ARM or Intel?
-    os_arch=$(uname -m)
+  # Are we ARM or Intel?
+  os_arch=$(uname -m)
 
-    if [[ "${os_arch}" == "arm64" ]]; then
-        brew_path="/opt/homebrew"
-    else
-        brew_path="/usr/local"
-    fi
+  if [[ "${os_arch}" == "arm64" ]]; then
+    brew_path="/opt/homebrew"
+  else
+    brew_path="/usr/local"
+  fi
 
-    if [[ -d "$brew_path" ]]; then
-        brew_cmd="${brew_path}/bin/brew"
-        eval "$($brew_cmd shellenv)" >/dev/null
-    fi
+  if [[ -d "$brew_path" ]]; then
+    brew_cmd="${brew_path}/bin/brew"
+    eval "$($brew_cmd shellenv)" >/dev/null
+  fi
 }
 
 # Get pyenv's shell stuff going.
 setup_pyenv() {
-    if command -v pyenv >/dev/null 2>&1; then
-        export PYENV_ROOT="$HOME/.pyenv"
-        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-    fi
+  if command -v pyenv >/dev/null 2>&1; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+  fi
 }
 
 case "${SYSTEM_OS}" in
 darwin)
-    [[ -f "${HOME}/.zprofile-macos" ]] && source "${HOME}/.zprofile-macos"
-    ;;
+  [[ -f "${HOME}/.zprofile-macos" ]] && source "${HOME}/.zprofile-macos"
+  ;;
 linux)
-    [[ -f "${HOME}/.zprofile-linux" ]] && source "${HOME}/.zprofile-linux"
-    ;;
+  [[ -f "${HOME}/.zprofile-linux" ]] && source "${HOME}/.zprofile-linux"
+  ;;
 *) ;;
 esac
 
@@ -55,13 +55,26 @@ esac
 
 # Attempt to use pyenv if we don't have poetry installed
 if ! command -v poetry &>/dev/null; then
-    setup_pyenv
+  setup_pyenv
 fi
 
 # Python 3 support for gcloud
 export CLOUDSDK_PYTHON=python3
 
 # Setting PATH for Python 3.11
-# The original version is saved in .zprofile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
-export PATH
+if [[ -e "/Library/Frameworks/Python.framework/Versions/3.11/bin" ]]; then
+  PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
+  export PATH
+fi
+#
+# Setting PATH for Python 3.12
+if [[ -e "/Library/Frameworks/Python.framework/Versions/3.12/bin" ]]; then
+  PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:${PATH}"
+  export PATH
+fi
+
+# Setting PATH for Python 3.13
+if [[ -e "/Library/Frameworks/Python.framework/Versions/3.13/bin" ]]; then
+  PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:${PATH}"
+  export PATH
+fi

@@ -112,7 +112,9 @@ require('mason-tool-installer').setup {
     'debugpy',
     'ansible-lint',
     'nomad',
-    'luacheck'
+    'luacheck',
+    'checkmake',
+    'mbake'
   }
 }
 
