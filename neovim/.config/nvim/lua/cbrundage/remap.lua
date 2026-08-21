@@ -124,7 +124,7 @@ vim.keymap.set('n', '<leader>dbs', function()
   end
 end, { desc = 'Show compiled SQL' })
 
-vim.keymap.set('n', '<leader>dgd', function()
+vim.keymap.set('n', '<leader>dbgd', function()
   -- Get word under cursor or try to extract from ref('...')
   local line = vim.fn.getline(".")
   local col = vim.fn.col(".")
