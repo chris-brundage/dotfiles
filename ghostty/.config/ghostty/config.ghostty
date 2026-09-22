@@ -35,4 +35,6 @@ keybind = super+arrow_right=next_tab
 
 cursor-click-to-move = false
 
+macos-titlebar-style = transparent
+
 config-file = ?config.work
