@@ -1,8 +1,8 @@
 local M = {}
 
 -- Handle poetry path shenanigans where needed
-function M.get_poetry_path(dir)
-  if vim.fn.executable('poetry') == 0 then
+function M.get_python_path(dir)
+  if os.getenv("VIRTUAL_ENV") ~= nil or vim.fn.executable('poetry') == 0 then
     return "python"
   end
 
