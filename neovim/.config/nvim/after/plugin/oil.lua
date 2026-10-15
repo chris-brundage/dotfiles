@@ -3,28 +3,30 @@ local oil = require('oil')
 oil.setup({
   view_options = {
     show_hidden = true,
-  }
+  },
 })
 
-vim.keymap.set('n', '<leader>ee', function() oil.open(vim.fn.expand('%p:h')) end)
-vim.keymap.set('n', '<leader>eh', function() vim.cmd('sp ' .. vim.fn.expand('%:p:h')) end)
-vim.keymap.set('n', '<leader>ev', function() vim.cmd('vsp ' .. vim.fn.expand('%:p:h')) end)
+-- Open oil in the current window, or in a new split
+local function open_oil(split, dir)
+  if split then
+    vim.cmd[split]()
+  end
+  oil.open(dir)
+end
+
+-- Keymaps
+vim.keymap.set('n', '<leader>ee', function() open_oil() end, { desc = 'Oil: current dir' })
+vim.keymap.set('n', '<leader>eh', function() open_oil('split') end, { desc = 'Oil: hsplit' })
+vim.keymap.set('n', '<leader>ev', function() open_oil('vsplit') end, { desc = 'Oil: vsplit' })
 
 -- Allow my muscle memory from netrw to still work
-vim.api.nvim_create_user_command('Ex', function(cmd_args)
-  local dir = string.len(cmd_args['args']) > 0 and cmd_args['args'] or '%:p:h'
+local function make_cmd(name, split)
+  vim.api.nvim_create_user_command(name, function(cmd_args)
+    local dir = cmd_args.args ~= '' and vim.fn.expand(cmd_args.args) or nil
+    open_oil(split, dir)
+  end, { nargs = '?', complete = 'dir' })
+end
 
-  oil.open(vim.fn.expand(dir))
-end, { nargs = '?', complete = 'dir' })
-
-vim.api.nvim_create_user_command('Vex', function(cmd_args)
-  local dir = string.len(cmd_args['args']) > 0 and cmd_args['args'] or '%:p:h'
-
-  vim.cmd('vsp ' .. vim.fn.expand(dir))
-end, { nargs = '?', complete = 'dir' })
-
-vim.api.nvim_create_user_command('Hex', function(cmd_args)
-  local dir = string.len(cmd_args['args']) > 0 and cmd_args['args'] or '%:p:h'
-
-  vim.cmd('sp ' .. vim.fn.expand(dir))
-end, { nargs = '?', complete = 'dir' })
+make_cmd('Ex', nil)
+make_cmd('Vex', 'vsplit')
+make_cmd('Hex', 'split')
